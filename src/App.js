@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import DropFile from './Components/DropFile/DropFile'
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import SignOut from './Components/SignOutButton/SignOutButton';
+import { Provider, useDispatch } from 'react-redux';
+import { store } from './Redux/Store';
+import { useSelector } from 'react-redux';
+import { Auth } from '@aws-amplify/auth'
+import { setUserInfo } from './Redux/UserSlice';
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+
+    const fetchUser = async () => {
+      try {
+        const userInfo = await Auth.currentAuthenticatedUser()
+        const userData = {
+          email: userInfo.attributes.email,
+        }
+
+        dispatch(setUserInfo(userData))
+        console.log('user info:', userData)
+      } catch (error) {
+        console.log('error fetching user info:', error)
+      }
+    }
+    console.log('auth passed: signed in')
+    fetchUser()
+  }, [dispatch])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Cadence
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <DropFile/>
+      <SignOut/>
     </div>
   );
 }
 
-export default App;
+export default withAuthenticator(App);
