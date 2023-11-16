@@ -1,6 +1,7 @@
-/*import { supabase } from '../../supabaseClient';
+import { supabase } from '../../supabaseClient';
 
 export const PATCH = async (req) => {
+    try {
   const { id, title } = await req.json();
 
   const { error, count } = await supabase()
@@ -10,14 +11,15 @@ export const PATCH = async (req) => {
 
   if (error) {
     console.error(error);
-    return NextResponse.json({ error }, { status: 500 });
+    return error
   }
 
   if (count === 0) {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    return { error: 'Document not found'};
   }
 
-  return NextResponse.json({
-    message: 'Document title updated successfully'
-  });
-};*/
+  return {message: 'Document title updated successfully'}
+} catch (error) {
+    console.log(error)
+}
+};
