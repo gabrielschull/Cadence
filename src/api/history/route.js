@@ -11,5 +11,10 @@ export const GET = async () => {
     return error;
   }
 
-  return documents.json();
+  // check for return -> needs to emulate nextResponse.json(data)
+  return {
+    'data': documents,
+    'status': 200,
+    'statusText': 'OK'  
+};
 };
