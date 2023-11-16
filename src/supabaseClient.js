@@ -5,4 +5,4 @@ const supabaseKey = process.env.REACT_APP_SUPABASE_API_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-export default { supabaseClient };
+export default { supabase };
