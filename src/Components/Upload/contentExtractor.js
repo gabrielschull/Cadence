@@ -1,8 +1,21 @@
 import * as pdfjsLib from 'pdfjs-dist/webpack';
-
-//ADD CSV FUNCTIONALITY HERE
+import Papa from 'papaparse';
 
 export const extractDocumentContent = async (file) => {
+
+    const fileName = file.name.toLowerCase();
+    const extension = fileName.slice(fileName.lastIndexOf('.') + 1);
+
+    if (extension === 'pdf') {
+        return extractPdfContent(file);
+    } else if (extension === 'csv') {
+        return extractCsvContent(file);
+    } else {
+        throw new Error('Unsupported file type');
+    }
+}
+
+const extractPdfContent = async (file) => {
   let content = [];
 
   const fileData = await file.arrayBuffer();
@@ -19,8 +32,18 @@ export const extractDocumentContent = async (file) => {
     });
     content.push(pageContent.join(' '));
   }
+  return { content };
+}
 
-  return {
-    content
-  };
+  const extractCsvContent = async (file) => {  
+    return new Promise((resolve, reject) => {
+        Papa.parse(file, {
+            complete: (results) => {
+                resolve({ content: results.data});
+            },
+            error: (error) => {
+                reject(error);
+            }
+        });
+    })
 };
