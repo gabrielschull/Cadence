@@ -11,8 +11,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^5.3.11",
+    "crypto-js": "^4.2.0",
     "dotenv": "^16.3.1",
+    "langchain": "^0.0.189",
+    "openai": "^4.19.0",
     "papaparse": "^5.4.1",
+    "pdfjs-dist": "^4.0.189",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
@@ -20,6 +24,7 @@
     "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
     "redux-persist": "^6.0.0",
+    "sqlstring": "^2.3.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
