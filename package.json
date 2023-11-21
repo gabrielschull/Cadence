@@ -32,7 +32,9 @@
   },
   "scripts": {
     "dev": "webpack --watch --config webpack.dev.js",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "start": "node server/server.js",
+    "nodedev": "nodemon server/server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +62,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
+    "nodemon": "^3.0.1",
     "svg-url-loader": "^8.0.0",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"

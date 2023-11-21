@@ -1,7 +1,9 @@
-import cors from 'cors';
-import express from 'express';
-import puppeteer from 'puppeteer';
-import { supabase } from '../../supabaseClient'; // Adjust the path as per your project structure
+const cors = require('cors');
+const express = require('express');
+require('dotenv').config();
+const puppeteer = require('puppeteer');
+const { supabase } = require('../src/supabaseClient'); // Adjust the path as per your project structure
+
 
 const app = express();
 const port = 3000;
