@@ -57,7 +57,7 @@ const generateDocumentTitle = async (checksum, fileName) => {
 
 const getChunkContent = async (checksum, chunkLimit = 3) => {
   const { data, error } = await supabase()
-    .from(process.env.NEXT_PUBLIC_SUPABASE_DOCUMENTS_CHUNK_TABLE)
+    .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_CHUNK_TABLE)
     .select('chunk_content')
     .lte('chunk_number', chunkLimit)
     .eq('document_checksum', checksum);
