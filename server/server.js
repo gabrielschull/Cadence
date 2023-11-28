@@ -8,6 +8,7 @@ const processDocRoutes = require('./routes/api/processDocRoutes');
 const historyRoutes = require('./routes/api/historyRoutes');
 const editTitleRoutes = require('./routes/api/editTitleRoutes');
 const chatRecordRoutes = require('./routes/api/chatRecordRoutes');
+const chatRoutes = require('./routes/api/chatRoutes');
 
 const app = express();
 const port = 3000;
@@ -21,6 +22,7 @@ app.use('/api', processDocRoutes);
 app.use('/api', historyRoutes);
 app.use('/api', editTitleRoutes);
 app.use('/api', chatRecordRoutes);
+app.use('/api', chatRoutes);
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);

@@ -28,7 +28,6 @@ router.post('/process-document', async (req, res) => {
       });
       sendProgress(channel, 'Processing document...');
   
-      // Process the document in the background
       processDocumentInBackground({ channel, content, fileName, checksum })
         .then(() => {
           console.log('Document processing completed');
