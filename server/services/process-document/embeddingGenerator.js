@@ -2,7 +2,7 @@ const { RecursiveCharacterTextSplitter } = require ('langchain/text_splitter');
 
 const { openAIEmbedding } = require ('../../openai');
 
-export const generateEmbeddings = async (content) => {
+const generateEmbeddings = async (content) => {
   const splitter = new RecursiveCharacterTextSplitter({
     chunkSize: 5000,
     chunkOverlap: 100
@@ -15,3 +15,5 @@ export const generateEmbeddings = async (content) => {
     embeddings: await openAIEmbedding.embedDocuments(chunks)
   };
 };
+
+module.exports = { generateEmbeddings };
