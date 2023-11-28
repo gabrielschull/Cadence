@@ -1,4 +1,4 @@
-import { supabase } from '../../../supabaseClient';
+import { supabase } from '../../../../server/supabaseClient';
 // NEED TO PASS IN ID HERE, CURRENTLY NOTHING RECEIVED
 export const DELETE = async ({params:  {id} }) => {
 

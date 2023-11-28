@@ -1,7 +1,7 @@
 import { ChatMessageHistory } from 'langchain/memory';
 import { v4 as uuid } from 'uuid';
 
-import { chatMemory } from '../openai';
+import { chatMemory } from '../../../server/openai';
 import { saveChat } from './saveChat';
 import { infer } from './service';
 

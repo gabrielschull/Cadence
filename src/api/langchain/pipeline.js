@@ -1,6 +1,6 @@
 import { SequentialChain } from 'langchain/chains';
 
-import { chatMemory } from '../openai';
+import { chatMemory } from '../../../server/openai';
 
 export const sequentialPipeline = async ({
   content,

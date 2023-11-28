@@ -1,5 +1,5 @@
-import { chatMemory } from '../openai';
-import { supabase } from '../../supabaseClient';
+import { chatMemory } from '../../../server/openai';
+import { supabase } from '../../../server/supabaseClient';
 
 export const POST = async (req) => {
   try {

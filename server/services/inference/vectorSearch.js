@@ -1,7 +1,7 @@
-import { openAIEmbedding } from '../../../server/openai';
-import { supabase } from '../../../server/supabaseClient';
+const { openAIEmbedding } = require('../../openai');
+const { supabase } = require('../../supabaseClient');
 
-export const filterSimilarVectors = async (documentId, message, matchCount) => {
+const filterSimilarVectors = async (documentId, message, matchCount) => {
   const query_embedding = await openAIEmbedding.embedQuery(message);
 
   const { data: vectors, error } = await supabase().rpc('match_documents', {
@@ -22,4 +22,8 @@ export const filterSimilarVectors = async (documentId, message, matchCount) => {
       .join(' '),
     error: null
   };
+};
+
+module.exports = {
+  filterSimilarVectors
 };

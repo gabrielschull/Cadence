@@ -1,4 +1,4 @@
-import { supabase } from '../../supabaseClient';
+import { supabase } from '../../../server/supabaseClient';
 
 export const PATCH = async (req) => {
     try {

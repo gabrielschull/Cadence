@@ -1,8 +1,8 @@
-import { LLMChain, PromptTemplate } from 'langchain';
+const { LLMChain, PromptTemplate } = require('langchain');
 
-import { llm } from '../../../server/openai';
+const { llm } = require('../../openai');
 
-export const qaChain = () => {
+const qaChain = () => {
   // This is the same prompt copied from the langchain qaChain function with a few modifications
   const qaPrompt = new PromptTemplate({
     template:
@@ -23,3 +23,5 @@ export const qaChain = () => {
     outputKey: 'answer'
   });
 };
+
+module.exports = { qaChain };
