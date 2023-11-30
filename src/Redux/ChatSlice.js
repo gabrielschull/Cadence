@@ -1,15 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    activeChatId: null,
+  activeChatId: null,
   conversationHistory: null,
   currentDocument: null,
   login: null,
   openDraw: false,
 };
-
-
-
 
 export const ChatSlice = createSlice({
   name: 'chat',
