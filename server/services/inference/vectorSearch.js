@@ -1,5 +1,5 @@
 const { openAIEmbedding } = require('../../openai');
-const { supabase } = require('../../supabaseClient');
+const { supabase } = require('../../supabase');
 
 const filterSimilarVectors = async (documentId, message, matchCount) => {
   const query_embedding = await openAIEmbedding.embedQuery(message);

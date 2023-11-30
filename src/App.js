@@ -7,7 +7,6 @@ import { store } from './Redux/Store';
 import { useSelector } from 'react-redux';
 import { Auth } from '@aws-amplify/auth'
 import { setUserInfo } from './Redux/UserSlice';
-import { Box, Grid } from 'mui/material'
 import { useSelector } from 'react-redux';
 
 function App() {
@@ -35,35 +34,7 @@ function App() {
 
 
   return (
-    <Grid container>
-      <Grid item xl={12} lg={3} md={4}>
-        <Box
-        display = {{
-          xl: 'block',
-          lg: 'block',
-          md: 'none',
-          sm: 'none',
-          xs: 'none'
-        }}>
-          {/* CHAT HISTORY HERE */}
-        </Box>
-        </Grid>
-        {/* <Grid 
-        item 
-        xl={9} 
-        lg={9} 
-        md={12} 
-        sm={12} 
-        xs={12}
-        sx= {{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: 'auto',
-          height: '100vh'
-        }}>
-          {activeChatId ? <ChatContainer/> : <Home />}
-      </Grid>*/}
+
     <div className="App">
         <p>
           Cadence
@@ -71,8 +42,6 @@ function App() {
       <DropFile/>
       <SignOut/>
     </div>
-    
-    </Grid>
   );
 }
 

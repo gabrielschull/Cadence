@@ -1,4 +1,4 @@
-const { supabase } = require ('../../supabaseClient');
+const { supabase } = require ('../../supabase');
 
 const bucket = process.env.REACT_APP_SUPABASE_BUCKET;
 

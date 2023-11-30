@@ -1,4 +1,4 @@
-const { supabase } = require('../../supabaseClient');
+const { supabase } = require('../../supabase');
 
 const saveChat = async (chatRecord) => {
     const { error } = await supabase()

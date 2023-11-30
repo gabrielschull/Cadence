@@ -4,7 +4,7 @@ import { setConversationHistory } from "../Redux/ChatSlice";
 import { useHttpClient } from "../useHttpClient";
 import { useSelector } from "react-redux";
 
-export default ChatWrapper = ({ children }) => {
+const ChatWrapper = ({ children }) => {
     const dispatch = useDispatch();
     const { fetch } = useHttpClient();
     const activeChatId = useSelector((state) => state.chat.activeChatId);
@@ -20,3 +20,5 @@ export default ChatWrapper = ({ children }) => {
 
     return children;
     }
+
+export default ChatWrapper;

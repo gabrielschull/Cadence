@@ -1,4 +1,4 @@
-const { supabase } =  require ('../../supabaseClient');
+const { supabase } =  require ('../../supabase');
 
 const deleteChatById = async (id) => {
     const { error } = await supabase()

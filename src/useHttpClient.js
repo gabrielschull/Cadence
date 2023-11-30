@@ -2,7 +2,7 @@ export const useHttpClient = () => {
 
     const fetch = async (url, options) => {
         try {
-        const res = await window.fetch(url, {
+        const res = await window.fetch(`http://localhost:3000${url}`, {
             
             ...options,
         });

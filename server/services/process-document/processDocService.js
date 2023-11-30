@@ -1,6 +1,6 @@
 const SqlString = require ('sqlstring');
 
-const { supabase } = require ('../supabase');
+const { supabase } = require ('../../supabase');
 
 const fetchDocument = async ({ checksum }) => {
   const { data, error, count } = await supabase()

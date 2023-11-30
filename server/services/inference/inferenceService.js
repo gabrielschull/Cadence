@@ -1,5 +1,5 @@
 const { ChatMessageHistory } = require('langchain/memory');
-const { chatMemory } = require('../openai');
+const { chatMemory } = require('../../openai');
 const { processInference } = require('./processInference');
 
 function saveChatToBuffer(documentId, message, context, role = 'human') {

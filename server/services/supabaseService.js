@@ -1,3 +1,3 @@
-const { supabase } = require('../supabaseClient');
+const { supabase } = require('../supabase');
 
 module.exports = {};

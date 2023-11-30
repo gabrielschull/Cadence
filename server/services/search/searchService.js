@@ -4,7 +4,7 @@ const { LLMChain } = require('langchain/chains');
 const { qaChain } = require('../langchain/chains');
 const { sequentialPipeline } = require('../langchain/pipeline');
 const { llm, openAIEmbedding } = require('../openai');
-const { supabase } = require('../../supabaseClient')
+const { supabase } = require('../../supabase')
 
 const search = async (query) => {
   const { closestMatch, error } = await findClosestVector(query);
