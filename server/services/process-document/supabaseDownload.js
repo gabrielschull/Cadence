@@ -1,6 +1,6 @@
 const { supabase } = require ('../../supabaseClient');
 
-const bucket = process.env.NEXT_PUBLIC_SUPABASE_BUCKET;
+const bucket = process.env.REACT_APP_SUPABASE_BUCKET;
 
 const download = async (objectId) => {
   const { data, error } = await supabase()
