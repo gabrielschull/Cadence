@@ -1,15 +1,15 @@
 const { supabase } =  require ('../../supabase');
 
-const deleteChatById = async (id) => {
+const deleteMessageById = async (id) => {
     const { error } = await supabase()
-      .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
+      .from(process.env.REACT_APP_CHAT_RECORDS_TABLE)
       .delete()
-      .eq('id', id);
+      .match({ id });
   
     return { error };
   };
   
-  const deleteMessage = async (checksum) => {
+  const deleteDoc = async (checksum) => {
     const { error } = await supabase()
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
       .delete()
@@ -19,6 +19,6 @@ const deleteChatById = async (id) => {
   };
   
   module.exports = {
-    deleteChatById,
-    deleteMessage
+    deleteMessageById,
+    deleteDoc
   };
