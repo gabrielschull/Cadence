@@ -10,6 +10,7 @@ import { AmplifyProvider } from '@aws-amplify/ui-react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './Redux/Store';
+import chatWrapper from './chat/chatWrapper';
 
 Amplify.configure(config)
 
@@ -18,7 +19,9 @@ root.render(
   <AmplifyProvider>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
+      <chatWrapper>
     <App />
+    </chatWrapper>
     </PersistGate>
     </Provider>
   </AmplifyProvider>
