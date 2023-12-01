@@ -1,10 +1,10 @@
-const { PromptTemplate } = require('langchain');
-const { LLMChain } = require('langchain/chains');
+import { PromptTemplate } from 'langchain/prompts';
+import { LLMChain } from 'langchain/chains';
+import { qaChain } from '../langchain/chains.js';
+import { sequentialPipeline } from '../langchain/pipeline.js';
+import { llm, openAIEmbedding } from '../../openai.js';
+import { supabase } from '../../supabase.js';
 
-const { qaChain } = require('../langchain/chains');
-const { sequentialPipeline } = require('../langchain/pipeline');
-const { llm, openAIEmbedding } = require('../openai');
-const { supabase } = require('../../supabase')
 
 const search = async (query) => {
   const { closestMatch, error } = await findClosestVector(query);
@@ -68,4 +68,4 @@ const findClosestVector = async (query) => {
   };
 };
 
-module.exports = { search }
+export { search };

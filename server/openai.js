@@ -1,7 +1,10 @@
-const { ChatOpenAI } = require('langchain/chat_models/openai');
-const { OpenAIEmbeddings } = require('langchain/embeddings/openai');
-const { BufferMemory } = require('langchain/memory');
-const { OpenAIApi } = require('openai');
+//import { OpenAI } from "langchain/llms/openai";
+import { ChatOpenAI } from 'langchain/chat_models/openai';
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
+import { BufferMemory } from 'langchain/memory';
+//import { OpenAIApi } from 'openai';
+
+//console.log(process.env.OPENAI_API_KEY, "OPENAI_API_KEY");
 
 const chatMemory = new BufferMemory();
 
@@ -12,18 +15,19 @@ const llm = new ChatOpenAI({
   temperature: 0.9
 });
 
-const openAI = new OpenAIApi({
+/*const openAI = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY
-});
+});*/
+
 
 const openAIEmbedding = new OpenAIEmbeddings({
   openAIApiKey: process.env.OPENAI_API_KEY,
   modelName: 'text-embedding-ada-002'
 });
 
-module.exports = {
+export {
   chatMemory,
   llm,
-  openAI,
+  //openAI,
   openAIEmbedding
 };

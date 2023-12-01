@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { deleteMessageById, deleteDoc } from '../../services/chat/chatService.js';
+
 const router = express.Router();
-const { deleteMessageById, deleteDoc } = require('../../services/chat/chatService');
 
 // Delete chat record by id
 router.delete('/chat/message/:id', async (req, res) => {
@@ -38,4 +39,4 @@ router.delete('/chat/message/:id', async (req, res) => {
 //   }
 // });
 
-module.exports = router;
+export default router;

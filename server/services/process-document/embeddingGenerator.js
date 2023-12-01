@@ -1,6 +1,5 @@
-const { RecursiveCharacterTextSplitter } = require ('langchain/text_splitter');
-
-const { openAIEmbedding } = require ('../../openai');
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
+import { openAIEmbedding } from '../../openai.js';
 
 const generateEmbeddings = async (content) => {
   const splitter = new RecursiveCharacterTextSplitter({
@@ -16,4 +15,4 @@ const generateEmbeddings = async (content) => {
   };
 };
 
-module.exports = { generateEmbeddings };
+export { generateEmbeddings };

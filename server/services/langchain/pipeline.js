@@ -1,6 +1,5 @@
-const { SequentialChain } = require('langchain/chains');
-
-const { chatMemory } = require('../../openai');
+import { SequentialChain } from 'langchain/chains';
+import { chatMemory } from '../../openai.js';
 
 const sequentialPipeline = async ({
     content,
@@ -56,6 +55,6 @@ const sequentialPipeline = async ({
     return { answer: text, context: content.slice(0, 6000), error: aiError };
 };
 
-module.exports = {
+export {
     sequentialPipeline
 };

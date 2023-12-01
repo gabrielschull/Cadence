@@ -7,7 +7,6 @@ import { store } from './Redux/Store';
 import { useSelector } from 'react-redux';
 import { Auth } from '@aws-amplify/auth'
 import { setUserInfo } from './Redux/UserSlice';
-import { useSelector } from 'react-redux';
 
 function App() {
   const dispatch = useDispatch()

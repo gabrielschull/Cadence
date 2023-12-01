@@ -1,4 +1,4 @@
-const { supabase } = require('../../supabase');
+import { supabase } from '../../supabase.js';
 
 const saveChat = async (chatRecord) => {
     const { error } = await supabase()
@@ -15,4 +15,4 @@ const saveChat = async (chatRecord) => {
     return { error: null };
 };
 
-module.exports = { saveChat };
+export { saveChat };

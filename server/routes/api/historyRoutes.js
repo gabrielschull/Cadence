@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+export { supabase } from '../../supabase.js';
+
 const router = express.Router();
-const { supabase } = require('../../supabaseClient');
 
 router.get('/history', async (req, res) => {
   try {
@@ -21,4 +22,4 @@ router.get('/history', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

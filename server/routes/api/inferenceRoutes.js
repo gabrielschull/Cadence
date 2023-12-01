@@ -1,8 +1,9 @@
-const express = require('express');
+import express from 'express';
+import { v4 as uuid } from 'uuid';
+import { processInference, saveChatToBuffer } from '../../services/inference/inferenceService.js';
+import { saveChat } from '../../services/inference/saveChat.js';
+
 const router = express.Router();
-const { processInference, saveChatToBuffer } = require('../../services/inference/inferenceService');
-const { v4: uuid } = require('uuid');
-const { saveChat } = require('../../services/inference/saveChat');
 
 router.post('/inference', async (req, res) => {
   const { documentId, conversationId, message } = req.body;
@@ -28,4 +29,4 @@ router.post('/inference', async (req, res) => {
   res.status(200).send(response);
 });
 
-module.exports = router;
+export default router;

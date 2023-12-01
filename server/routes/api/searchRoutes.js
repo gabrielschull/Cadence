@@ -1,6 +1,5 @@
-
-const express = require('express');
-const { search } = require('../../services/search/searchService');
+import express from 'express';
+import { search } from '../../services/search/searchService.js';
 
 const router = express.Router();
 
@@ -21,4 +20,4 @@ router.post('/search', async (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

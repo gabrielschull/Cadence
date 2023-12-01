@@ -1,8 +1,8 @@
-const { ChatMessageHistory } = require('langchain/memory');
-const { chatMemory } = require('../../openai');
-const { processInference } = require('./processInference');
+import { ChatMessageHistory } from 'langchain/memory';
+import { chatMemory } from '../../openai.js';
+import { processInference } from './processInference.js';
 
-function saveChatToBuffer(documentId, message, context, role = 'human') {
+export function saveChatToBuffer(documentId, message, context, role = 'human') {
     try {
         if (chatMemory.memoryKey !== documentId) {
             chatMemory.memoryKey = documentId;
@@ -24,7 +24,6 @@ function saveChatToBuffer(documentId, message, context, role = 'human') {
     }
 }
 
-module.exports = {
-    saveChatToBuffer,
+export {
     processInference 
 };

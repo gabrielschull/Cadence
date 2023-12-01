@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
+import { supabase } from '../../supabase.js';
+import { fetchDocument, saveDocument } from '../../services/process-document/processDocService.js';
+import { generateEmbeddings } from '../../services/process-document/embeddingGenerator.js';
+import { generateDocumentTitle } from '../../services/process-document/titleGenerator.js';
+
 const router = express.Router();
-const { supabase } = require('../../supabaseClient');
-const { fetchDocument, saveDocument } = require('../../services/process-document/processDocService');
-const { generateEmbeddings } = require('../../services/process-document/embeddingGenerator');
-const { generateDocumentTitle } = require('../../services/process-document/titleGenerator');
 
 router.post('/process-document', async (req, res) => {
     try {
@@ -106,4 +107,4 @@ router.post('/process-document', async (req, res) => {
     }
   };
   
-  module.exports = router;
+export default router;

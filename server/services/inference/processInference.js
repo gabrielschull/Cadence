@@ -1,7 +1,7 @@
-const { qaChain } = require('../langchain/chains');
-const { sequentialPipeline } = require('../langchain/pipeline');
-const { saveChat } = require('./saveChat');
-const { filterSimilarVectors } = require('./vectorSearch');
+import { qaChain } from '../langchain/chains.js';
+import { sequentialPipeline } from '../langchain/pipeline.js';
+import { saveChat } from './saveChat.js';
+import { filterSimilarVectors } from './vectorSearch.js';
 
 const processInference = async ({
   documentId,
@@ -72,5 +72,4 @@ const processInference = async ({
   }
 };
 
-
-module.exports = { processInference };
+export { processInference };

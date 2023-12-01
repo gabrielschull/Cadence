@@ -1,5 +1,5 @@
-const { openAIEmbedding } = require('../../openai');
-const { supabase } = require('../../supabase');
+import { openAIEmbedding } from'../../openai.js';
+import { supabase } from '../../supabase.js';
 
 const filterSimilarVectors = async (documentId, message, matchCount) => {
   const query_embedding = await openAIEmbedding.embedQuery(message);
@@ -24,6 +24,6 @@ const filterSimilarVectors = async (documentId, message, matchCount) => {
   };
 };
 
-module.exports = {
+export {
   filterSimilarVectors
 };

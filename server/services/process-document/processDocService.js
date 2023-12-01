@@ -1,6 +1,5 @@
-const SqlString = require ('sqlstring');
-
-const { supabase } = require ('../../supabase');
+import SqlString from 'sqlstring';
+import { supabase } from '../../supabase.js';
 
 const fetchDocument = async ({ checksum }) => {
   const { data, error, count } = await supabase()
@@ -49,7 +48,7 @@ const saveDocument = async ({ checksum, fileName, chunks }) => {
   const { error } = await supabase()
     .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
     .insert({
-      checksum: checksum,
+      checksum,
       document_name: fileName,
       title: fileName,
       uploaded_object_id: object[0].id
@@ -106,4 +105,4 @@ const saveDocumentChunks = async (checksum, chunks) => {
   return { error: null };
 };
 
-module.exports = { fetchDocument, saveDocument };
+export { fetchDocument, saveDocument };

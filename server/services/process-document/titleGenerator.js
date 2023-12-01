@@ -1,8 +1,9 @@
-const { LLMChain, PromptTemplate } = require ('langchain');
+import { LLMChain } from 'langchain/chains';
+import { PromptTemplate } from 'langchain/prompts';
 
-const { llm } = require ('../../openai');
+import { llm } from'../../openai.js';
 
-const { supabase } = require('../supabase');
+import { supabase } from '../../supabase.js';
 
 const generateDocumentTitle = async (checksum, fileName) => {
   const defaultTitle = {
@@ -79,4 +80,4 @@ const getChunkContent = async (checksum, chunkLimit = 3) => {
   };
 };
 
-module.exports = { generateDocumentTitle, getChunkContent}
+export { generateDocumentTitle, getChunkContent}

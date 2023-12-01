@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import { supabase } from '../../supabase.js';
+
 const router = express.Router();
-const { supabase } = require('../../supabaseClient');
 
 router.patch('/edit-title', async (req, res) => {
   try {
@@ -29,4 +30,4 @@ router.patch('/edit-title', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import { supabase } from '../../supabase.js';
+import { chatMemory } from '../../openai.js';
+
 const router = express.Router();
-const { supabase } = require('../../supabaseClient');
-const { chatMemory } = require('../../openai');
 
 router.post('/chat-records', async (req, res) => {
   try {
@@ -27,4 +28,4 @@ router.post('/chat-records', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

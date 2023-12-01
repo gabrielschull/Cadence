@@ -1,4 +1,4 @@
-const { supabase } =  require ('../../supabase');
+import { supabase } from '../../supabase.js';
 
 const deleteMessageById = async (id) => {
     const { error } = await supabase()
@@ -18,7 +18,7 @@ const deleteMessageById = async (id) => {
     return { error };
   };
   
-  module.exports = {
+  export {
     deleteMessageById,
     deleteDoc
   };

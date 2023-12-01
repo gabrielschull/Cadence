@@ -1,4 +1,4 @@
-const { supabase } = require ('../../supabase');
+import { supabase } from '../../supabase';
 
 const bucket = process.env.REACT_APP_SUPABASE_BUCKET;
 
@@ -15,4 +15,4 @@ const download = async (objectId) => {
   return { file: data };
 };
 
-module.exports = { download };
+export { download };
