@@ -1,7 +1,6 @@
 import cors from 'cors';
 import express from 'express';
 import 'dotenv/config';
-import path from 'path';
 import inferenceRoutes from './routes/api/inferenceRoutes.js';
 import searchRoutes from './routes/api/searchRoutes.js';
 import processDocRoutes from './routes/api/processDocRoutes.js';
