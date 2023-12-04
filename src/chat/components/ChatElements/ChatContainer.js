@@ -2,14 +2,14 @@ import { useCallback,useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 
-import { useHttpClient } from '../../../useHttpClient';
+import { useHttpClient } from '../../../useHttpClient.js';
 import { Alert, Grid, List, Typography } from '@mui/material';
 
-import { useChatStream } from '../../useChatStream';
-import ChatHeader from './ChatHeader';
-import ChatInput from './ChatInput';
-import ChatItem from './ChatItem';
-import { Loader } from './Loader';
+import { useChatStream } from '../../useChatStream.js';
+import ChatHeader from './ChatHeader.js';
+import ChatInput from './ChatInput.js';
+import ChatItem from './ChatItem.js';
+import { Loader } from './Loader.js';
 
 export default function ChatMessage() {
   const activeChatId = useSelector((state) => state.chat.activeChatId);
@@ -88,7 +88,6 @@ export default function ChatMessage() {
       >
         {conversations.length === 0 ? (
           <>
-            <LogoCard />
             <Typography sx={{ color: '#eeeeee', padding: '20px 0px' }}>
               Your document has been processed! Quiz away!
             </Typography>

@@ -1,8 +1,8 @@
 import {parse} from "papaparse"
 import { useState } from "react";
-import { setClients } from "../../Redux/ClientsSlice";
 import { useDispatch } from "react-redux";
 import React, { useCallback } from 'react';
+import { setClients } from "../../Redux/ClientsSlice.js";
 
 
 function DropFile() {

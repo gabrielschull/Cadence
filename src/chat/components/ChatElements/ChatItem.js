@@ -2,7 +2,7 @@ import format from 'date-fns/format';
 import { memo, useEffect, useRef, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 
-import CodeBlock from '@/app/CodeBlock';
+import CodeBlock from '../CodeBock.js';
 import { Face6, SmartToy } from '@mui/icons-material';
 import {
   Box,
@@ -14,7 +14,7 @@ import {
   Typography
 } from '@mui/material';
 
-import ChatMenu from './ChatMenu';
+import ChatMenu from './ChatMenu.js';
 
 export default memo(function ChatItem({
   conversation,

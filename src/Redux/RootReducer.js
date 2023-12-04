@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import userReducer from './UserSlice'
-import clientsReducer from './ClientsSlice'
-import chatReducer from './ChatSlice'
+import userReducer from './UserSlice.js'
+import clientsReducer from './ClientsSlice.js'
+import chatReducer from './ChatSlice.js'
 
 const rootReducer = combineReducers({
     User: userReducer,

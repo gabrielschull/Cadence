@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import DropFile from './Components/DropFile/DropFile'
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import SignOut from './Components/SignOutButton/SignOutButton';
-import { Provider, useDispatch } from 'react-redux';
-import { store } from './Redux/Store';
 import { useSelector } from 'react-redux';
 import { Auth } from '@aws-amplify/auth'
-import { setUserInfo } from './Redux/UserSlice';
+import { Provider, useDispatch } from 'react-redux';
+
+import DropFile from './Components/DropFile/DropFile.js'
+import SignOut from './Components/SignOutButton/SignOutButton.js';
+import { setUserInfo } from './Redux/UserSlice.js';
 
 function App() {
   const dispatch = useDispatch()

@@ -1,11 +1,9 @@
-import LogoCard from '@/app/LogoCard';
 import { Typography } from '@mui/material';
 
 export default function UploadInput({ getInputProps }) {
   return (
     <>
       <input {...getInputProps()} />
-      <LogoCard />
       <Typography
         sx={{
           fontWeight: 'bold',

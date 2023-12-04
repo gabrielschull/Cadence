@@ -1,19 +1,19 @@
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
-
-import { supabaseClient } from '../../../supabaseClient';
-import { useHttpClient } from '../../../useHttpClient';
+import { useSelector, useDispatch } from 'react-redux';
 import { CloudUpload, UploadFileRounded } from '@mui/icons-material';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 
-import FeatureCards from './FeatureCards';
-import Loader from './Loader';
-import UploadInput from './UploadInput';
-import { generateChecksum } from './checksum';
-import { extractDocumentContent } from './contentExtractor';
-import { useSelector, useDispatch } from 'react-redux';
-import { setActiveChatId, setCurrentDocument } from '../../../Redux/ChatSlice';
+import { supabaseClient } from '../../../supabaseClient.js';
+import { useHttpClient } from '../../../useHttpClient.js';
+
+import FeatureCards from './FeatureCards.js';
+import Loader from './Loader.js';
+import UploadInput from './UploadInput.js';
+import { generateChecksum } from './checksum.js';
+import { extractDocumentContent } from './contentExtractor.js';
+import { setActiveChatId, setCurrentDocument } from '../../../Redux/ChatSlice.js';
 
 export default function Hero() {
 

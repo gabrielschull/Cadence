@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import { useSelector } from 'react-redux';
-import Hero from './Upload/Hero';
+//import Hero from './Upload/Hero.js';
 
 export default function Home() {
     const activeChatId = useSelector((state) => state.chat.activeChatId);
