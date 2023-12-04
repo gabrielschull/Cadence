@@ -8,7 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default {
     entry: {
-        sidebar: './src/index.js',
+        sidebar: './client/index.js',
         background: './extension/background.js',
     },
     output: {

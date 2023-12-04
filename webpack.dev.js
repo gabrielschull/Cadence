@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default {
-    entry: './src/index.js',
+    entry: './client/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'), // path for the build
         filename: '[name].js',
