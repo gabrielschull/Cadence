@@ -14,6 +14,7 @@ import UploadInput from './UploadInput';
 import { generateChecksum } from './checksum';
 import { extractDocumentContent } from './contentExtractor';
 import { setActiveChatId, setCurrentDocument } from '../../../Redux/ChatSlice';
+import { is } from 'date-fns/locale';
 
 export default function Hero() {
 
@@ -156,18 +157,15 @@ export default function Hero() {
 
   return (
     <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-        textAlign: 'center',
-        overflow: 'hidden',
-        opacity: isDragActive ? 0.5 : 1,
-        transition: 'opacity 0.3s ease-in-out'
-      }}
-      {...getRootProps()}
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100%',
+      textAlign: 'center',
+      overflow: 'hidden',
+    }}
     >
       <UploadInput getInputProps={getInputProps} />
       {loading ? (
@@ -178,40 +176,10 @@ export default function Hero() {
             direction="row"
             flexWrap="wrap"
             justifyContent="center"
-            padding="20px"
           >
             <FeatureCards />
           </Stack>
-          <Stack
-            display={{
-              xl: 'block',
-              lg: 'block',
-              xs: 'none'
-            }}
-          >
-            <Grid
-              sx={{
-                color: '#a4a8c2'
-              }}
-            >
-              <UploadFileRounded
-                sx={{
-                  fontSize: '30px'
-                }}
-              />
-              <Typography
-                sx={{
-                  fontSize: {
-                    xl: '14px',
-                    xs: '12px'
-                  },
-                  margin: '10px 0px'
-                }}
-              >
-                Drag and drop to upload your file
-              </Typography>
-            </Grid>
-          </Stack>
+          
           <Stack
             sx={{
               bottom: 0,
@@ -219,15 +187,51 @@ export default function Hero() {
               transition: 'opacity 0.3s ease-in-out'
             }}
           >
-            {isDragActive && (
-              <CloudUpload
-                sx={{
-                  color: 'rgb(63,81,181)',
-                  fontSize: '350px',
-                  margin: '20px 0px'
-                }}
-              />
-            )}
+          </Stack>
+  
+          {/* Drag and Drop Upload Area */}
+          <Stack
+            display={{
+              xl: 'block',
+              lg: 'block',
+              xs: 'none'
+            }}
+          >
+            <Box
+              {...getRootProps()}
+              sx={{
+                border: `2px solid #a4a8c2`,
+                width: '250px',
+                height: '150px',
+                borderRadius: '10px',
+                padding: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                opacity: isDragActive ? 0.5 : 1,
+                transition: 'opacity 0.3s ease-in-out',
+                marginTop: '20px', 
+              }}
+            >
+              
+              {isDragActive ? (
+                <CloudUpload
+                    sx={{
+                      color: 'rgb(63,81,181)',
+                      fontSize: '100px',
+                      margin: '20px 0px'
+                    }}
+                  />
+                ) : (
+                  <>
+              <UploadFileRounded sx={{ fontSize: '30px' }} />
+              <Typography sx={{ fontSize: { xl: '14px', xs: '12px' }, margin: '10px 0px' }}>
+                Drag and drop to upload the document
+              </Typography>
+              </>
+                )}
+            </Box>
           </Stack>
         </>
       )}
