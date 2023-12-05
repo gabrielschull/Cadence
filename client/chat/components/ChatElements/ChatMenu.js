@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { useHttpClient } from '../../../useHttpClient.js';
+import { useHttpClient } from '../../../useHttpClient';
 import { ExpandMoreRounded } from '@mui/icons-material';
 import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 

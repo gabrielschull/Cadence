@@ -8,8 +8,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default {
     entry: {
-        sidebar: './client/index.js',
-        background: './extension/background.js',
+        sidebar: './index.js',
+        background: '../extension/background.js',
     },
     output: {
         path: path.resolve(__dirname, 'dist'), // path for the build
@@ -50,7 +50,7 @@ export default {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './public/index.html',
+            template: '../public/index.html',
             filename: 'sidebar.html',
             chunks: ['sidebar'],
         }),
@@ -58,7 +58,7 @@ export default {
         new CopyPlugin({
             patterns: [
                 {
-                    from: "public",
+                    from: "../public",
                 },
             ],
         }),

@@ -2,14 +2,14 @@ import { useCallback,useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 
-import { useHttpClient } from '../../../useHttpClient.js';
+import { useHttpClient } from '../../../useHttpClient';
 import { Alert, Grid, List, Typography } from '@mui/material';
 
-import { useChatStream } from '../../useChatStream.js';
-import ChatHeader from './ChatHeader.js';
-import ChatInput from './ChatInput.js';
-import ChatItem from './ChatItem.js';
-import { Loader } from './Loader.js';
+import { useChatStream } from '../../useChatStream';
+import ChatHeader from './ChatHeader';
+import ChatInput from './ChatInput';
+import ChatItem from './ChatItem';
+import { Loader } from './Loader';
 
 export default function ChatMessage() {
   const activeChatId = useSelector((state) => state.chat.activeChatId);

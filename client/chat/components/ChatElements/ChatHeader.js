@@ -1,4 +1,4 @@
-import { supabaseClient } from '../../../supabaseClient.js';
+import { supabaseClient } from '../../../supabaseClient';
 import { Download, PictureAsPdf } from '@mui/icons-material';
 import { Grid, IconButton, Stack, Typography } from '@mui/material';
 

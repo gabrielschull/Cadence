@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default {
-    entry: './client/index.js',
+    entry: './index.js',
     output: {
         path: path.resolve(__dirname, 'dist'), // path for the build
         filename: '[name].js',
@@ -48,14 +48,14 @@ export default {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './public/index.html',
+            template: '../public/index.html',
             filename: 'sidebar.html',
         }),
         new MiniCssExtractPlugin(),
         new CopyPlugin({
             patterns: [
                 {
-                    from: "public",
+                    from: "../public",
                 },
             ],
         }),

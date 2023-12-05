@@ -2,7 +2,7 @@ import format from 'date-fns/format';
 import { memo, useEffect, useRef, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 
-import CodeBlock from '../CodeBock.js';
+import CodeBlock from '../CodeBock';
 import { Face6, SmartToy } from '@mui/icons-material';
 import {
   Box,

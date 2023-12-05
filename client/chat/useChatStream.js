@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { v4 as uuid } from 'uuid';
 
-import { useHttpClient } from '../useHttpClient.js';
+import { useHttpClient } from '../useHttpClient';
 
 export const useChatStream = () => {
   const { fetch } = useHttpClient();

@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App.js';
-import reportWebVitals from './reportWebVitals.js';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
-import config from './aws-exports.js'
+import config from './aws-exports'
 import '@aws-amplify/ui-react/styles.css'
 import { AmplifyProvider } from '@aws-amplify/ui-react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './Redux/Store.js';
-import ChatWrapper from './chat/chatWrapper.js';
+import { store, persistor } from './Redux/Store';
+import ChatWrapper from './chat/chatWrapper';
 
 Amplify.configure(config)
 
@@ -19,9 +19,9 @@ root.render(
   <AmplifyProvider>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-      <ChatWrapper>
+      {/*<ChatWrapper>*/}
     <App />
-    </ChatWrapper>
+    {/*</ChatWrapper>*/}
     </PersistGate>
     </Provider>
   </AmplifyProvider>

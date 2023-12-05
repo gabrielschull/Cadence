@@ -4,13 +4,12 @@ import { useSelector } from 'react-redux';
 import { Auth } from '@aws-amplify/auth'
 import { Provider, useDispatch } from 'react-redux';
 
-import DropFile from './Components/DropFile/DropFile.js'
-import SignOut from './Components/SignOutButton/SignOutButton.js';
-import { setUserInfo } from './Redux/UserSlice.js';
+import DropFile from './Components/DropFile/DropFile'
+import SignOut from './Components/SignOutButton/SignOutButton';
+import { setUserInfo } from './Redux/UserSlice';
 
 function App() {
   const dispatch = useDispatch()
-  const activeChatId = useSelector((state) => state.chat.activeChatId);
 
   useEffect(() => {
 
