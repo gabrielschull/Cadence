@@ -3,6 +3,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyPlugin from "copy-webpack-plugin";
 import { fileURLToPath } from 'url';
+import Dotenv from 'dotenv-webpack';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -62,5 +63,6 @@ export default {
                 },
             ],
         }),
+        new Dotenv(),
     ],
 };

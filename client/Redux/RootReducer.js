@@ -4,9 +4,9 @@ import clientsReducer from './ClientsSlice'
 import chatReducer from './ChatSlice'
 
 const rootReducer = combineReducers({
-    User: userReducer,
-    Clients: clientsReducer,
-    Chat: chatReducer,
+    user: userReducer,
+    clients: clientsReducer,
+    chat: chatReducer,
 });
 
 export default rootReducer;

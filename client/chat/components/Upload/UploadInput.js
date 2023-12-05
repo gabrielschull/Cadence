@@ -21,7 +21,7 @@ export default function UploadInput({ getInputProps }) {
       </Typography>
       <Typography
         sx={{
-          color: '#cacaca',
+          color: '#94a4ff',
           padding: '10px 0px',
           fontSize: {
             xl: '20px',

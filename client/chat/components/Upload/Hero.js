@@ -208,7 +208,7 @@ export default function Hero() {
                   margin: '10px 0px'
                 }}
               >
-                Drag and drop to upload the document
+                Drag and drop to upload your file
               </Typography>
             </Grid>
           </Stack>

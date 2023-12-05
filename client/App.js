@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Auth } from '@aws-amplify/auth'
 import { Provider, useDispatch } from 'react-redux';
 
+import Home from './chat/components/Home'
 import DropFile from './Components/DropFile/DropFile'
 import SignOut from './Components/SignOutButton/SignOutButton';
 import { setUserInfo } from './Redux/UserSlice';
@@ -34,9 +35,7 @@ function App() {
   return (
 
     <div className="App">
-        <p>
-          Cadence
-        </p>
+      <Home/>
       <DropFile/>
       <SignOut/>
     </div>
