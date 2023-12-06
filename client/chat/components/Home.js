@@ -7,13 +7,16 @@ export default function Home() {
 
     return ( 
         
-        <Grid container>
+        <Grid container sx = {{
+          bgcolor: '#8a6d9e',
+        }}>
         <Grid 
         sx = {{
           textAlign: 'center',
-          bgcolor: 'primary.main',
+          bgcolor: '#8a6d9e',
+          borderRight: '1px solid black',
           '&:hover': {
-            bgcolor: 'info.main',
+            bgcolor: '#937ca3',
           },
         }}
         item xl={12} lg={3} md={4}>
@@ -25,7 +28,7 @@ export default function Home() {
           sm: 'none',
           xs: 'none'
         }}>
-          CHAT HISTORY HERE
+          CHAT HISTORY
         </Box>
         </Grid>
          <Grid 

@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import { useSelector } from 'react-redux';
-import { Auth } from '@aws-amplify/auth'
 import { Provider, useDispatch } from 'react-redux';
 
 import Home from './chat/components/Home'
-import DropFile from './Components/DropFile/DropFile'
-import SignOut from './Components/SignOutButton/SignOutButton';
+import SignOut from './signout/SignOutButton';
+import Search from './search/components/Search';
 import { setUserInfo } from './Redux/UserSlice';
 
 function App() {
   const dispatch = useDispatch()
 
-  useEffect(() => {
+  /* useEffect(() => {
 
     const fetchUser = async () => {
       try {
@@ -29,17 +27,17 @@ function App() {
     }
     console.log('auth passed: signed in')
     fetchUser()
-  }, [dispatch])
+  }, [dispatch]) */
 
 
   return (
 
     <div className="App">
       <Home/>
-      <DropFile/>
+      <Search/>
       <SignOut/>
     </div>
   );
 }
 
-export default withAuthenticator(App);
+export default App;
