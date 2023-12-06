@@ -1,41 +1,42 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Provider, useDispatch } from 'react-redux';
+import { MemoryRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 
 import Home from './chat/components/Home'
 import SignOut from './signout/SignOutButton';
 import Search from './search/components/Search';
-import { setUserInfo } from './Redux/UserSlice';
+import Login from './login/Login';
+import withAuthProtection from './withAuthProtection';
+
 
 function App() {
-  const dispatch = useDispatch()
+  
+  const ProtectedHomePage = withAuthProtection(HomePage);
 
-  /* useEffect(() => {
+  function HomePage() {
 
-    const fetchUser = async () => {
-      try {
-        const userInfo = await Auth.currentAuthenticatedUser()
-        const userData = {
-          email: userInfo.attributes.email,
-        }
-
-        dispatch(setUserInfo(userData))
-        console.log('user info:', userData)
-      } catch (error) {
-        console.log('error fetching user info:', error)
-      }
-    }
-    console.log('auth passed: signed in')
-    fetchUser()
-  }, [dispatch]) */
-
+    const authState = useSelector((state) => state.user.authState);
+    console.log('authState', authState)
+    
+    return (
+      <>
+      <Home/>
+      <Search/>
+      <SignOut/>
+      </>
+    )
+  }
 
   return (
 
     <div className="App">
-      <Home/>
-      <Search/>
-      <SignOut/>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<ProtectedHomePage/>} />
+        </Routes>
+      </Router>
     </div>
   );
 }
