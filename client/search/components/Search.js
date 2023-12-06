@@ -41,6 +41,8 @@ export default function Search() {
     <Grid
       container
       sx={{
+        marginTop: '70px',
+        bgcolor: '#8a6d9e',
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
