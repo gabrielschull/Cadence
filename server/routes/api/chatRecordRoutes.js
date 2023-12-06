@@ -10,7 +10,7 @@ router.post('/chat-records', async (req, res) => {
 
     const { checksum } = req.body;
 
-    const { data, error } = await supabase()
+    const { data, error } = await supabase
       .from(process.env.REACT_APP_SUPABASE_CHAT_RECORDS_TABLE)
       .select('id, message, actor, created_at')
       .eq('checksum', checksum)

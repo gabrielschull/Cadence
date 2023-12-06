@@ -4,7 +4,7 @@ import { supabase } from '../../supabase.js';
 const filterSimilarVectors = async (documentId, message, matchCount) => {
   const query_embedding = await openAIEmbedding.embedQuery(message);
 
-  const { data: vectors, error } = await supabase().rpc('match_documents', {
+  const { data: vectors, error } = await supabase.rpc('match_documents', {
     query_embedding,
     match_count: matchCount,
     filter_checksum: documentId

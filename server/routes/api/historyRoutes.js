@@ -1,11 +1,11 @@
 import express from 'express';
-export { supabase } from '../../supabase.js';
+import { supabase } from '../../supabase.js';
 
 const router = express.Router();
 
 router.get('/history', async (req, res) => {
   try {
-    const { data: documents, error } = await supabase()
+    const { data: documents, error } = await supabase
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
       .select('checksum, document_name, title')
       .order('created_time', { ascending: true });

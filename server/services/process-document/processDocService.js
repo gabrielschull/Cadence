@@ -2,7 +2,7 @@ import SqlString from 'sqlstring';
 import { supabase } from '../../supabase.js';
 
 const fetchDocument = async ({ checksum }) => {
-  const { data, error, count } = await supabase()
+  const { data, error, count } = await supabase
     .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
     .select('checksum, document_name, title', {
       count: 'exact'
@@ -33,7 +33,7 @@ const fetchDocument = async ({ checksum }) => {
 };
 
 const saveDocument = async ({ checksum, fileName, chunks }) => {
-  const { data: object, error: objectError } = await supabase()
+  const { data: object, error: objectError } = await supabase
     .schema('storage')
     .from('objects')
     .select('id')
@@ -45,7 +45,7 @@ const saveDocument = async ({ checksum, fileName, chunks }) => {
     };
   }
 
-  const { error } = await supabase()
+  const { error } = await supabase
     .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
     .insert({
       checksum,
@@ -61,7 +61,7 @@ const saveDocument = async ({ checksum, fileName, chunks }) => {
 
   const { error: saveChunksError } = await saveDocumentChunks(checksum, chunks);
   if (saveChunksError) {
-    await supabase()
+    await supabase
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
       .delete({ count: 1 })
       .eq('checksum', checksum);
@@ -93,7 +93,7 @@ const saveDocumentChunks = async (checksum, chunks) => {
     });
   }
 
-  const { error } = await supabase()
+  const { error } = await supabase
     .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
     .insert(data);
 

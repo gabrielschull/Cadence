@@ -20,7 +20,7 @@ router.post('/process-document', async (req, res) => {
         return res.status(200).json(data);
       }
   
-      const channel = supabase().channel(`upload:${checksum}`);
+      const channel = supabase.channel(`upload:${checksum}`);
       channel.subscribe((status) => {
         console.log({ status });
         if (['TIMED_OUT', 'CLOSED', 'CHANNEL_ERROR'].includes(status)) {

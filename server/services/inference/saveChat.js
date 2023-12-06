@@ -1,7 +1,7 @@
 import { supabase } from '../../supabase.js';
 
 const saveChat = async (chatRecord) => {
-    const { error } = await supabase()
+    const { error } = await supabase
         .from(process.env.REACT_APP_SUPABASE_CHAT_RECORDS_TABLE)
         .insert({
             ...chatRecord

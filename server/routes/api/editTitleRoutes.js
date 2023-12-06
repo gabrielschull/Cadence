@@ -7,7 +7,7 @@ router.patch('/edit-title', async (req, res) => {
   try {
     const { id, title } = req.body;
 
-    const { error, count } = await supabase()
+    const { error, count } = await supabase
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE) 
       .update({ title })
       .eq('checksum', id);
