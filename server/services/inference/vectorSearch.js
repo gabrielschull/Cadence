@@ -2,6 +2,7 @@ import { openAIEmbedding } from'../../openai.js';
 import { supabase } from '../../supabase.js';
 
 const filterSimilarVectors = async (documentId, message, matchCount) => {
+  console.log('message vectorSearch', message)
   const query_embedding = await openAIEmbedding.embedQuery(message);
 
   const { data: vectors, error } = await supabase.rpc('match_documents', {

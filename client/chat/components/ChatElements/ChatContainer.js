@@ -91,10 +91,10 @@ export default function ChatContainer() {
       >
         {conversations.length === 0 ? (
           <>
-          {/* <button onClick={() => {
+          <button onClick={() => {
           dispatch(clearCurrentDocument())
           dispatch(clearActiveChat())
-           }}>Clear</button> */}
+           }}>Clear</button>
             <Typography sx={{ color: '#eeeeee', padding: '20px 0px' }}>
               Cadence is here to help!
             </Typography>

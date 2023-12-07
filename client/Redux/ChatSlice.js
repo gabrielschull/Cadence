@@ -29,8 +29,14 @@ export const ChatSlice = createSlice({
         },
     setConversationHistory: (state, action) => {
         state.conversationHistory = action.payload
+        },
+    updateConversationTitle: (state, action) => {
+        const index = state.conversationHistory.findIndex((item) => item.checksum === action.payload.chatId);
+        if (index !== -1) {
+            state.conversationHistory[index].title = action.payload.title;
         }
-  },
+        }
+    },
 });
 export const {
     setActiveChatId,
@@ -39,6 +45,7 @@ export const {
     setConversationHistory,
     clearCurrentDocument,
     clearActiveChat,
+    updateConversationTitle,
 } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

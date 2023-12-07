@@ -201,7 +201,6 @@ export default function Hero() {
           >
           </Stack>
   
-          {/* Drag and Drop Upload Area */}
           <Stack
             display={{
               xl: 'block',
@@ -239,7 +238,7 @@ export default function Hero() {
                   <>
               <UploadFileRounded sx={{ fontSize: '30px' }} />
               <Typography sx={{ fontSize: { xl: '14px', xs: '12px' }, margin: '10px 0px' }}>
-                Drag and drop to upload the document
+                Upload a file
               </Typography>
               </>
                 )}

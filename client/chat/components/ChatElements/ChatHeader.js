@@ -1,5 +1,5 @@
 import { supabaseClient } from '../../../supabaseClient';
-import { Download, PictureAsPdf } from '@mui/icons-material';
+import { Download } from '@mui/icons-material';
 import { Grid, IconButton, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
@@ -32,12 +32,7 @@ export default function ChatHeader() {
         }}
       >
         <IconButton size="large">
-          <PictureAsPdf
-            sx={{
-              color: '#ffffff',
-              fontSize: '40px'
-            }}
-          />
+        
         </IconButton>
         <Stack
           color="#ffffff"

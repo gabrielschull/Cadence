@@ -47,6 +47,7 @@ const search = async (query) => {
 };
 
 const findClosestVector = async (query) => {
+  console.log('query searchService', query)
   const { data, error } = await supabase.rpc('search_documents', {
     query_embedding: await openAIEmbedding.embedQuery(query),
     match_count: 5

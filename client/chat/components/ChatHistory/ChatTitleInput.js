@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Cancel, Check } from '@mui/icons-material';
 import { Box, CircularProgress, IconButton, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentDocument, setConversationHistory } from '../../../Redux/ChatSlice';
+import { setCurrentDocument, setConversationHistory, updateConversationTitle } from '../../../Redux/ChatSlice';
 import { useHttpClient } from '../../../useHttpClient';
 
 export default function ChatTitleInput({
@@ -13,6 +13,9 @@ export default function ChatTitleInput({
 }) {
 
   const dispatch = useDispatch();
+  const oldhistory = useSelector((state) => state.chat.conversationHistory);
+  const updatedConversation = useSelector((state) => state.chat.conversationHistory.find((item) => item.checksum === chatId));
+  console.log('oldhistory', oldhistory)
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -27,29 +30,35 @@ export default function ChatTitleInput({
       method: 'PATCH',
       body: JSON.stringify({ title: chatTitle, id: chatId })
     })
-      .then((res) => {
+    .then((res) => res.json())
+    .then((data) => {
+      console.log('data', data)
         setLoading(false);
 
-        if (!res.ok) {
+        if (!data.ok) {
           setError(true);
         } else {
           setError(false);
           setIsEdit(false);
           setChatTitle(chatTitle);
 
-          dispatch(setCurrentDocument((conversation) => ({
-            ...conversation,
+          const updatedConversation = {
+            ...currentConversation,
             title: chatTitle
-          })));
+          };
+          
+          dispatch(setCurrentDocument(updatedConversation));
+          
+          const updatedHistoryItem = oldhistory.find(item => item.checksum === chatId);
 
-          dispatch(setConversationHistory((oldhistory) => {
-            const index = oldhistory.findIndex((item) => item.checksum === chatId);
-            const history = [...oldhistory];
-            if (index !== -1) {
-              history[index].title = chatTitle;
-            }
-            return history;
-          }));
+          if (updatedHistoryItem) {
+            const updatedItem = {
+              ...updatedHistoryItem,
+              title: chatTitle
+            };
+            dispatch(updateConversationTitle(updatedItem));
+            console.log('state', state.chat.conversationHistory)
+          }
         }
       })
       .catch(() => {
@@ -113,6 +122,7 @@ export default function ChatTitleInput({
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           submitHandler();
+          console.log('edit submitted')
           setIsEdit(false);
         } else if (e.key === 'Escape') {
           setIsEdit(false);
