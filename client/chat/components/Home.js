@@ -1,6 +1,7 @@
 import { Box, Grid } from '@mui/material'
 import { useSelector } from 'react-redux';
 import Hero from './Upload/Hero.js';
+import ChatContainer from './ChatElements/ChatContainer.js';
 
 export default function Home() {
     const activeChatId = useSelector((state) => state.chat.activeChatId);
@@ -45,7 +46,8 @@ export default function Home() {
           margin: 'auto',
           height: '100vh',
         }}>
-          {activeChatId ? <ChatContainer /> : <Hero />}
+          <Hero />
+          {/*{activeChatId ? <ChatContainer /> : <Hero />}*/}
       </Grid>
     </Grid>
     

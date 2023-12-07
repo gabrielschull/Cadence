@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/process-document', async (req, res) => {
     try {
-      const { checksum, fileName, content } = req.body;
+      const { checksum, fileName, content, userId, fileExtension } = req.body;
   
       const { data, error: fetchError } = await fetchDocument({ checksum });
       if (fetchError) {
@@ -29,7 +29,7 @@ router.post('/process-document', async (req, res) => {
       });
       sendProgress(channel, 'Processing document...');
   
-      processDocumentInBackground({ channel, content, fileName, checksum })
+      processDocumentInBackground({ channel, content, fileName, checksum, userId, fileExtension })
         .then(() => {
           console.log('Document processing completed');
         })
@@ -49,7 +49,9 @@ router.post('/process-document', async (req, res) => {
     channel,
     content,
     fileName,
-    checksum
+    checksum,
+    userId,
+    fileExtension,
   }) => {
     sendProgress(channel, 'Saving document details...');
     const chunks = await generateEmbeddings(content);
@@ -58,7 +60,9 @@ router.post('/process-document', async (req, res) => {
     const { data, error } = await saveDocument({
       fileName,
       checksum,
-      chunks
+      chunks,
+      userId,
+      fileExtension,
     });
   
     if (error) {

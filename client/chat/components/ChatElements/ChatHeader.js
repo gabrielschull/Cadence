@@ -1,12 +1,11 @@
 import { supabaseClient } from '../../../supabaseClient';
 import { Download, PictureAsPdf } from '@mui/icons-material';
 import { Grid, IconButton, Stack, Typography } from '@mui/material';
-
-import { UseSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export default function ChatHeader() {
     
-    const currentDocument = UseSelector((state) => state.chat.currentDocument);
+  const currentDocument = useSelector((state) => state.chat.currentDocument);
 
   return (
     <Grid

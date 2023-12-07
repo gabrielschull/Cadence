@@ -1,6 +1,7 @@
 import { useCallback,useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCurrentDocument, clearActiveChat } from '../../../Redux/ChatSlice';
 
 import { useHttpClient } from '../../../useHttpClient';
 import { Alert, Grid, List, Typography } from '@mui/material';
@@ -11,7 +12,9 @@ import ChatInput from './ChatInput';
 import ChatItem from './ChatItem';
 import { Loader } from './Loader';
 
-export default function ChatMessage() {
+export default function ChatContainer() {
+
+  const dispatch = useDispatch();
   const activeChatId = useSelector((state) => state.chat.activeChatId);
   const currentDocument = useSelector((state) => state.chat.currentDocument);
 
@@ -88,11 +91,15 @@ export default function ChatMessage() {
       >
         {conversations.length === 0 ? (
           <>
+          {/* <button onClick={() => {
+          dispatch(clearCurrentDocument())
+          dispatch(clearActiveChat())
+           }}>Clear</button> */}
             <Typography sx={{ color: '#eeeeee', padding: '20px 0px' }}>
-              Your document has been processed! Quiz away!
+              Cadence is here to help!
             </Typography>
             <Alert severity="info" sx={{ textAlign: 'center' }}>
-              Ask anything about the <b>{currentDocument?.title}</b>
+              Ask anything about <b>{currentDocument?.title}</b>
             </Alert>
           </>
         ) : (

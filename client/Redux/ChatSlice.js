@@ -15,8 +15,14 @@ export const ChatSlice = createSlice({
     setActiveChatId: (state, action) => {
         state.activeChatId = action.payload
         },
+    clearActiveChat: (state) => {
+        state.activeChatId = null
+        },
     setCurrentDocument: (state, action) => {
         state.currentDocument = action.payload
+        },
+    clearCurrentDocument: (state) => {
+        state.currentDocument = null
         },
     setOpenDraw: (state, action) => {    
         state.openDraw = action.payload
@@ -31,6 +37,8 @@ export const {
     setCurrentDocument,
     setOpenDraw,
     setConversationHistory,
+    clearCurrentDocument,
+    clearActiveChat,
 } = ChatSlice.actions;
 
 export default ChatSlice.reducer;

@@ -18,6 +18,7 @@ import { is } from 'date-fns/locale';
 
 export default function Hero() {
 
+    const userId = useSelector((state) => state.user.authState?.session?.user?.id);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('Uploading document...');
@@ -116,7 +117,7 @@ export default function Hero() {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ checksum, fileName: file.name, content })
+            body: JSON.stringify({ checksum, fileName: file.name, content, userId, fileExtension })
           });
 
           if (!response.ok) {
