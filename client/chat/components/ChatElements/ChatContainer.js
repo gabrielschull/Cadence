@@ -70,6 +70,7 @@ export default function ChatContainer() {
   useEffect(() => {
     setConversations([]);
     chatRecords();
+
   }, [activeChatId, chatRecords]);
 
   return (

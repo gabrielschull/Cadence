@@ -10,8 +10,10 @@ import {
 } from '@mui/material';
 
 import { setActiveChatId } from '../../../Redux/ChatSlice';
+import { useDispatch } from 'react-redux';
 
 export default function DeleteDialog({ chatToDelete, setChatToDelete }) {
+  const dispatch = useDispatch();
 
   const { fetch } = useHttpClient();
 
