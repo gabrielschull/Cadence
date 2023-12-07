@@ -32,27 +32,37 @@ const processInference = async ({
     const id = aiMessageId;
 
     const callbacks = [
+      
       {
+
         async handleLLMNewToken(token) {
-          if (chainSequence === 1) {
-            await writer.ready;
-            await writer.write(token);
+          console.log('TOKEN', token)
+          
+            //await writer.ready;
+            //await writer.write(token);
             aiMessage += token;
-          }
+            console.log('aiMessage', aiMessage)
+          
+           
         },
         async handleChainEnd() {
+          
           if (chainSequence === 1) {
-            await writer.close();
-            saveChat({
-              id,
-              message: aiMessage,
-              checksum: documentId,
-              actor: 'ai'
-            }).catch((error) => {
-              console.error({ error });
-            });
+            try {
+              await saveChat({
+                id,
+                message: aiMessage,
+                checksum: documentId,
+                actor: 'ai'
+              })
+              writer.close();
+            } catch(error) {
+              console.error({ error }, 'error saving ai message');
+            };
+            
           }
           chainSequence -= 1;
+
         }
       }
     ];
