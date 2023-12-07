@@ -9,11 +9,11 @@ const deleteMessageById = async (id) => {
     return { error };
   };
   
-  const deleteDoc = async (checksum) => {
+  const deleteDoc = async (id) => {
     const { error } = await supabase
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
       .delete()
-      .eq('checksum', checksum);
+      .eq('checksum', id?.toString());
   
     return { error };
   };
