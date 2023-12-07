@@ -6,7 +6,7 @@ const generateEmbeddings = async (content) => {
     chunkSize: 5000,
     chunkOverlap: 100
   });
-
+  //console.log('CONTENT', content);
   const chunks = await splitter.splitText(content.join(' '));
 
   return {

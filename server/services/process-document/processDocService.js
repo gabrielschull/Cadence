@@ -94,11 +94,12 @@ const saveDocumentChunks = async (checksum, chunks) => {
   }
 
   const { error } = await supabase
-    .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
+    .from(process.env.REACT_APP_SUPABASE_DOCUMENT_CHUNKS_TABLE)
     .insert(data);
 
   if (error) {
     console.error(error);
+    console.log('error in processDocService.js')
     return { error };
   }
 

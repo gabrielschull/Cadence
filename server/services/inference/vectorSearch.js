@@ -11,6 +11,7 @@ const filterSimilarVectors = async (documentId, message, matchCount) => {
   });
 
   if (error) {
+    console.log('error in vectorSearch.js')
     return { error };
   }
 

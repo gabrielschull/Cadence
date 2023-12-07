@@ -64,6 +64,7 @@ const getChunkContent = async (checksum, chunkLimit = 3) => {
     .eq('document_checksum', checksum);
 
   if (error) {
+    console.log('error in titleGenerator.js')
     console.error(error);
     return {
       content: null

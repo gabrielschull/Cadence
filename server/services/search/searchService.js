@@ -56,8 +56,11 @@ const findClosestVector = async (query) => {
     console.error(error);
     return { error };
   }
+  console.log('Data returned by search_documents', data)
 
   const combinedContent = data.map((d) => d.chunk_content).join(' ');
+
+  console.log('Combined content:', combinedContent);
 
   return {
     closestMatch: {
