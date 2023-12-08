@@ -17,7 +17,6 @@ app.use(express.json());
 app.use('/api', inferenceRoutes);
 app.use('/api', searchRoutes);
 app.use('/api', processDocRoutes);
-
 app.use('/api', historyRoutes);
 app.use('/api', editTitleRoutes);
 app.use('/api', chatRecordRoutes);

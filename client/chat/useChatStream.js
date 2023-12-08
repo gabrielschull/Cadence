@@ -35,6 +35,9 @@ export const useChatStream = () => {
 
     const res = await fetch('/api/inference', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         message,
         documentId,

@@ -32,12 +32,12 @@ const fetchDocument = async ({ checksum }) => {
   };
 };
 
-const saveDocument = async ({ checksum, fileName, chunks }) => {
+const saveDocument = async ({ checksum, fileName, chunks, userId, fileExtension }) => {
   const { data: object, error: objectError } = await supabase
     .schema('storage')
     .from('objects')
     .select('id')
-    .eq('name', `${checksum}.pdf`);
+    .eq('name', `${checksum}${fileExtension}`);
 
   if (objectError || object?.length === 0) {
     return {
@@ -59,7 +59,7 @@ const saveDocument = async ({ checksum, fileName, chunks }) => {
     return { error };
   }
 
-  const { error: saveChunksError } = await saveDocumentChunks(checksum, chunks);
+  const { error: saveChunksError } = await saveDocumentChunks(checksum, chunks, userId, fileExtension);
   if (saveChunksError) {
     await supabase
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
@@ -80,7 +80,7 @@ const saveDocument = async ({ checksum, fileName, chunks }) => {
   };
 };
 
-const saveDocumentChunks = async (checksum, chunks) => {
+const saveDocumentChunks = async (checksum, chunks, userId) => {
   const { content, embeddings } = chunks;
 
   let data = [];
@@ -89,16 +89,18 @@ const saveDocumentChunks = async (checksum, chunks) => {
       document_checksum: checksum,
       chunk_number: i + 1,
       chunk_content: SqlString.escape(content[i]),
-      chunk_embedding: embeddings[i]
+      chunk_embedding: embeddings[i],
+      created_by: userId
     });
   }
 
   const { error } = await supabase
-    .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
+    .from(process.env.REACT_APP_SUPABASE_DOCUMENT_CHUNKS_TABLE)
     .insert(data);
 
   if (error) {
     console.error(error);
+    console.log('error in processDocService.js')
     return { error };
   }
 

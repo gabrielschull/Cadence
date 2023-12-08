@@ -18,6 +18,7 @@ import { is } from 'date-fns/locale';
 
 export default function Hero() {
 
+    const userId = useSelector((state) => state.user.authState?.session?.user?.id);
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('Uploading document...');
@@ -93,23 +94,34 @@ export default function Hero() {
         setStatus('Uploading document...');
 
       const uploadPath = `${checksum}${fileExtension}`;
-      supabaseClient.storage
+      try {
+        const { error } = await supabaseClient.storage
         .from(process.env.REACT_APP_SUPABASE_BUCKET)
         .upload(uploadPath, file, {
           cacheControl: '3600',
           upsert: true,
           contentType: file.type
         });
+        if (error) {
+          console.error('Error uploading file (returned by upload() func)', error);
+        }
+      } catch (error) {
+        console.error('Error uploading file during execution of catch block in Hero', error);
+      }
 
       setStatus('Extracting document content...');
       const { response, error } = await extractDocumentContent(file).then(
         async ({ content }) => {
           const response = await fetch('/api/process-document', {
             method: 'POST',
-            body: JSON.stringify({ checksum, fileName: file.name, content })
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ checksum, fileName: file.name, content, userId, fileExtension })
           });
 
           if (!response.ok) {
+            console.log('Hero.js: fetch error')
             return { error: 'Error processing document' };
           }
 
@@ -189,7 +201,6 @@ export default function Hero() {
           >
           </Stack>
   
-          {/* Drag and Drop Upload Area */}
           <Stack
             display={{
               xl: 'block',
@@ -227,7 +238,7 @@ export default function Hero() {
                   <>
               <UploadFileRounded sx={{ fontSize: '30px' }} />
               <Typography sx={{ fontSize: { xl: '14px', xs: '12px' }, margin: '10px 0px' }}>
-                Drag and drop to upload the document
+                Upload a file
               </Typography>
               </>
                 )}
