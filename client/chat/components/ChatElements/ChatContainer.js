@@ -96,7 +96,7 @@ export default function ChatContainer() {
           dispatch(clearCurrentDocument())
           dispatch(clearActiveChat())
            }}>Clear</button>
-            <Typography sx={{ color: '#eeeeee', padding: '20px 0px' }}>
+            <Typography sx={{ color: 'black', padding: '20px 0px' }}>
               Cadence is here to help!
             </Typography>
             <Alert severity="info" sx={{ textAlign: 'center' }}>

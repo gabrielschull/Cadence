@@ -211,7 +211,7 @@ export default function Hero() {
             <Box
               {...getRootProps()}
               sx={{
-                border: `2px solid #a4a8c2`,
+                border: `2px solid black`,
                 width: '250px',
                 height: '150px',
                 borderRadius: '10px',

@@ -10,7 +10,8 @@ export default function Home() {
     return ( 
         
         <Grid container sx = {{
-          bgcolor: '#8a6d9e',
+          bgcolor: 'white',
+          borderBottom: '2px solid black',
         }}>
         <Grid 
         sx = {{
