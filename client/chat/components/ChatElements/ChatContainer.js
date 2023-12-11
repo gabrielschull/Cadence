@@ -29,10 +29,12 @@ export default function ChatContainer() {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+    console.log('activeChatId', activeChatId)
   }, [conversations.length]);
 
   const chatRecords = useCallback(async () => {
     setLoading(true);
+
 
     await fetch(`/api/chat-records`, {
       method: 'POST',
@@ -41,8 +43,10 @@ export default function ChatContainer() {
       })
     })
       .then(async (res) => {
+        console.log('res', res)
         setLoading(false);
         const data = await res.json();
+        console.log('data', data)
         setConversations((prev) => {
           return [
             ...prev,
@@ -116,9 +120,10 @@ export default function ChatContainer() {
             }}
           >
             {conversations.map((conversation) => {
+              const key=`${conversation.created_at}-${conversation.user}`
               return (
                 <ChatItem
-                  key={conversation.id}
+                  key={key}
                   conversation={conversation}
                   setConversations={setConversations}
                 />

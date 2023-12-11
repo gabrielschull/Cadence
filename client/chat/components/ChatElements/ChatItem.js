@@ -2,8 +2,9 @@ import format from 'date-fns/format';
 import { memo, useEffect, useRef, useState } from 'react';
 import { ThreeDots } from 'react-loader-spinner';
 
+import CadenceLogo from '../../../CadenceLogo.png';
 import CodeBlock from '../CodeBock';
-import { Face6, SmartToy } from '@mui/icons-material';
+import { Face6 } from '@mui/icons-material';
 import {
   Box,
   Card,
@@ -39,7 +40,7 @@ export default memo(function ChatItem({
       background: '#1f232d ',
       color: '#ffffff',
       justifyContent: 'flex-start',
-      icon: <SmartToy />,
+      icon: <img src={CadenceLogo} alt='Cadence Logo' style={{width: '25px', height: '25px'}}/>,
       iconColor: '#8990a1'
     };
   }

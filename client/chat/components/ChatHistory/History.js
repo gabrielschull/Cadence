@@ -11,8 +11,8 @@ import {
 
 import { useSelector, useDispatch } from 'react-redux';
 import { setActiveChatId, setOpenDraw } from '../../../Redux/ChatSlice';
-import ConversationHistory from './ConversationHistory';
 import { useNavigate } from 'react-router-dom';
+import ConversationHistory from './ConversationHistory';
 
 export default function History() {
   const navigate = useNavigate();
