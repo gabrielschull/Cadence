@@ -27,56 +27,53 @@ export default function ChatContainer() {
 
   const { submitHandler } = useChatStream();
 
+  
+  const chatRecords = useCallback(async () => {
+    setLoading(true);
+    
+    await fetch(`/api/chat-records/${activeChatId}`, {
+      method: 'GET',
+    })
+    .then(async (res) => {
+      console.log('res', res)
+      setLoading(false);
+      const data = await res.json();
+      console.log('data', data)
+      setConversations((prev) => {
+        return [
+          ...prev,
+          ...data.map((item) => {
+            return {
+              id: item.id,
+              user: item.actor,
+              message: item.message,
+              created_at: item.created_at
+            };
+          })
+        ];
+      });
+    })
+    .catch((err) => {
+      setLoading(false);
+      console.error(err);
+      toast.error('Cannot fetch chat records. Please try again later.', {
+        toastId: 'chat_error'
+      });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeChatId]);
+  
+  useEffect(() => {
+    //setConversations([]);
+    chatRecords();
+    
+  }, [activeChatId, chatRecords]);
+
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
     console.log('activeChatId', activeChatId)
   }, [conversations.length]);
-
-  const chatRecords = useCallback(async () => {
-    setLoading(true);
-
-
-    await fetch(`/api/chat-records`, {
-      method: 'POST',
-      body: JSON.stringify({
-        checksum: activeChatId
-      })
-    })
-      .then(async (res) => {
-        console.log('res', res)
-        setLoading(false);
-        const data = await res.json();
-        console.log('data', data)
-        setConversations((prev) => {
-          return [
-            ...prev,
-            ...data.map((item) => {
-              return {
-                id: item.id,
-                user: item.actor,
-                message: item.message,
-                created_at: item.created_at
-              };
-            })
-          ];
-        });
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.error(err);
-        toast.error('Cannot fetch chat records. Please try again later.', {
-          toastId: 'chat_error'
-        });
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeChatId]);
-
-  useEffect(() => {
-    setConversations([]);
-    chatRecords();
-
-  }, [activeChatId, chatRecords]);
-
+  
   return (
     <Grid container flexDirection="column" height="100%">
       {conversations && conversations.length > 0 && <ChatHeader />}

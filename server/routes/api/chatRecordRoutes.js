@@ -4,11 +4,11 @@ import { chatMemory } from '../../openai.js';
 
 const router = express.Router();
 
-router.post('/chat-records', async (req, res) => {
+router.get('/chat-records/:checksum', async (req, res) => {
   try {
     chatMemory.clear();
 
-    const { checksum } = req.body;
+    const { checksum } = req.params;
 
     const { data, error } = await supabase
       .from(process.env.REACT_APP_SUPABASE_CHAT_RECORDS_TABLE)
