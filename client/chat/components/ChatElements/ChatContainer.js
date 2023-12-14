@@ -147,6 +147,8 @@ export default function ChatContainer() {
               message,
               setConversations,
               setNewMessage
+            }).then(() => {
+              chatRecords();
             });
           }}
         />
