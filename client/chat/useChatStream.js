@@ -9,14 +9,15 @@ export const useChatStream = () => {
   const submitHandler = async ({
     documentId,
     message,
+    setNewMessage,
     setConversations,
-    setNewMessage
   }) => {
     if (message?.length === 0) {
       return;
     }
 
     const conversationId = uuid().toString();
+
     setConversations((prev) => {
       return [
         ...prev,
@@ -46,18 +47,8 @@ export const useChatStream = () => {
     });
 
     if (!res.ok) {
-      return handleError(res, setConversations);
+      return handleError(res);
     }
-
-    setConversations((prev) => {
-      let temp = [...prev];
-      const popped = temp.pop();
-      if (popped?.loader) {
-        return temp;
-      }
-
-      return prev;
-    });
 
     let aiMessage = '';
     const aiMessageId = res.headers.get('ConversationId');
@@ -92,33 +83,13 @@ export const useChatStream = () => {
         });
       }
     }
-
     setNewMessage(null);
-    setConversations((prev) => {
-      return [
-        ...prev,
-        {
-          id: aiMessageId,
-          user: 'ai',
-          message: aiMessage,
-          created_at: timestamp
-        }
-      ];
-    });
+    setConversations([])
   };
 
-  const handleError = async (error, setConversations) => {
+  const handleError = async (error) => {
     console.error({ error });
 
-    setConversations((prev) => {
-      let temp = [...prev];
-      const popped = temp.pop();
-      if (popped.loader) {
-        return temp;
-      }
-
-      return prev;
-    });
 
     toast.error('Cannot get the answer. Please try again later.', {
       toastId: 'chat_error',

@@ -11,6 +11,7 @@ import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 import ChatItem from './ChatItem';
 import { Loader } from './Loader';
+import { ms } from 'date-fns/locale';
 
 export default function ChatContainer() {
 
@@ -30,36 +31,31 @@ export default function ChatContainer() {
   
   const chatRecords = useCallback(async () => {
     setLoading(true);
-    
-    await fetch(`/api/chat-records/${activeChatId}`, {
-      method: 'GET',
-    })
-    .then(async (res) => {
-      console.log('res', res)
+    try {
+      const res = await fetch(`/api/chat-records/${activeChatId}`, {
+        method: 'GET',
+      });
+      console.log('res', res);
       setLoading(false);
       const data = await res.json();
-      console.log('data', data)
-      setConversations((prev) => {
-        return [
-          ...prev,
-          ...data.map((item) => {
-            return {
-              id: item.id,
-              user: item.actor,
-              message: item.message,
-              created_at: item.created_at
-            };
-          })
-        ];
+      console.log('data', data);
+      setConversations(prev => {
+        const existingIds = new Set(prev.map(msg => msg.id));
+        const newMessages = data.filter(item => !existingIds.has(item.id)).map(item => ({
+          id: item.id,
+          user: item.actor,
+          message: item.message,
+          created_at: item.created_at
+        }));
+        return [...prev, ...newMessages];
       });
-    })
-    .catch((err) => {
+    } catch (err) {
       setLoading(false);
       console.error(err);
       toast.error('Cannot fetch chat records. Please try again later.', {
         toastId: 'chat_error'
       });
-    });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeChatId]);
   
@@ -145,8 +141,8 @@ export default function ChatContainer() {
             submitHandler({
               documentId: activeChatId,
               message,
+              setNewMessage,
               setConversations,
-              setNewMessage
             }).then(() => {
               chatRecords();
             });
