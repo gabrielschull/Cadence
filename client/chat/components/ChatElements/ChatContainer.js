@@ -11,13 +11,14 @@ import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 import ChatItem from './ChatItem';
 import { Loader } from './Loader';
-import { ms } from 'date-fns/locale';
 
 export default function ChatContainer() {
 
   const dispatch = useDispatch();
   const activeChatId = useSelector((state) => state.chat.activeChatId);
   const currentDocument = useSelector((state) => state.chat.currentDocument);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  console.log('userInfo', userInfo)
 
   const [conversations, setConversations] = useState([]);
   const [newMessage, setNewMessage] = useState(null);

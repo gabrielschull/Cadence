@@ -12,7 +12,7 @@ export default function Login() {
     const navigate = useNavigate();
     
     useEffect(() => {
-        supabaseClient.auth.onAuthStateChange((event, session) => {
+        supabaseClient.auth.onAuthStateChange(async (event, session) => {
         
         dispatch(setAuthState({ event, session }));
 
@@ -21,7 +21,19 @@ export default function Login() {
       }
 
       if (session?.access_token) {
+        const { data: user, error } = await supabaseClient
+        .from('users')
+        .select('isFirstLogin')
+        .eq('id', session.user.id)
+        .single();
+      
+        if (error) {
+          console.error('Error fetching user data:', error);
+        } else if (user && user.isFirstLogin) {
+        navigate('/profile-setup');
+        } else {
         navigate('/');
+        }
       }
     });
   }, [dispatch, navigate]);
