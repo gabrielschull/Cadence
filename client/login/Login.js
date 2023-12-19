@@ -19,6 +19,34 @@ export default function Login() {
       if (event === 'SIGNED_OUT') {
         navigate('/login');
       }
+      if (event === 'SIGNED_IN') {
+        //check if user row exists in supabase
+        const {data: users, error} = await supabaseClient
+        .from('users')
+        .select('id')
+        .eq('id', session.user.id)
+
+        if (error) {
+          console.error('Error fetching user data:', error);
+        } else if (users.length === 0) {
+          //if user row does not exist, insert user row with initial info
+        const { error: insertError } = await supabaseClient
+        .from('users')
+        .insert([
+          {
+            id: session.user.id,
+            isFirstLogin: true,
+            email: session.user.email,
+            name: '',
+            position: '',
+            company: '',
+          }
+        ])
+        if (insertError) {
+          console.error('Error inserting user data:', insertError);
+        }
+      }
+    }
 
       if (session?.access_token) {
         const { data: user, error } = await supabaseClient
