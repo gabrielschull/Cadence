@@ -8,6 +8,8 @@ export default function ConversationHistory() {
   
   const conversationHistory = useSelector((state) => state.chat.conversationHistory);
   const activeChatId = useSelector((state) => state.chat.activeChatId);
+  console.log('activeChatId', activeChatId);
+  console.log('conversationHistory', conversationHistory);
 
   return (
     <>
@@ -32,7 +34,7 @@ export default function ConversationHistory() {
             </ListItemText>
           </ListItem>
         ))}
-      {conversationHistory?.map((conversation) => (
+      {Array.isArray(conversationHistory) && conversationHistory?.map((conversation) => (
         <HistoryListItem
           conversation={conversation}
           isActive={activeChatId === conversation.checksum}

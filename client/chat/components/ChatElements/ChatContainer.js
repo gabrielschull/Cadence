@@ -61,7 +61,7 @@ export default function ChatContainer() {
   }, [activeChatId]);
   
   useEffect(() => {
-    //setConversations([]);
+    setConversations([]);
     chatRecords();
     
   }, [activeChatId, chatRecords]);

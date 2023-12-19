@@ -4,10 +4,13 @@ import { supabase } from '../../supabase.js';
 const router = express.Router();
 
 router.get('/history', async (req, res) => {
+  const userId = req.query.userId;
+  console.log('userId', userId)
   try {
     const { data: documents, error } = await supabase
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)
       .select('checksum, document_name, title')
+      .eq('created_by', userId)
       .order('created_time', { ascending: true });
 
     if (error) {

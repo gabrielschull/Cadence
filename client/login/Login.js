@@ -59,7 +59,7 @@ export default function Login() {
           console.error('Error fetching user data:', error);
         } else if (user && user.isFirstLogin) {
         navigate('/profile-setup');
-        } else {
+        }  else {
         navigate('/');
         }
       }

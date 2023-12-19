@@ -1,6 +1,7 @@
 import { supabaseClient } from "../supabaseClient";
 import { signOut } from "../Redux/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { setActiveChatId } from "../Redux/ChatSlice";
 
 function SignOut() {
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function SignOut() {
           console.log('Error signing out:', error);
           return;
         } else {
+            dispatch(setActiveChatId(null));
             dispatch(signOut());
         }
     }

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Provider, useDispatch } from 'react-redux';
 import { MemoryRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 
 import Home from './chat/components/Home'
@@ -9,6 +8,7 @@ import Search from './search/components/Search';
 import Login from './login/Login';
 import ProfileSetup from './profile/ProfileSetup';
 import withAuthProtection from './withAuthProtection';
+import ChatWrapper from './chat/chatWrapper';
 
 
 function App() {
@@ -25,9 +25,11 @@ function App() {
     
     return (
       <>
+      <ChatWrapper>
       <Home/>
       <Search/>
       <SignOut/>
+      </ChatWrapper>
       </>
     )
   }
