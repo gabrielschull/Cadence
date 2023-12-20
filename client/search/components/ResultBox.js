@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
-import { PushPin } from '@mui/icons-material';
-import { Box, Grid, Typography } from '@mui/material';
+import { PushPin } from '@mui/icons-material'
+import { Box, Grid, Typography } from '@mui/material'
 
-import CodeBlock from '../../chat/components/CodeBock';
+import CodeBlock from '../../chat/components/CodeBock'
 
-export default function ResultBox({ answer }) {
+export default function ResultBox ({ answer }) {
   useEffect(() => {
     if (typeof window?.MathJax !== 'undefined') {
       window.MathJax = {
@@ -22,12 +22,12 @@ export default function ResultBox({ answer }) {
           }
         },
         loader: { load: ['[tex]/mhchem', '[tex]/color'] }
-      };
+      }
 
-      window.MathJax.typesetClear();
-      window.MathJax.typesetPromise();
+      window.MathJax.typesetClear()
+      window.MathJax.typesetPromise()
     }
-  }, []);
+  }, [])
 
   return (
     <Box
@@ -71,5 +71,5 @@ export default function ResultBox({ answer }) {
         </Typography>
       </Box>
     </Box>
-  );
+  )
 }

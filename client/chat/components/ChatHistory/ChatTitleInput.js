@@ -1,71 +1,69 @@
-import { useState } from 'react';
-import { Cancel, Check } from '@mui/icons-material';
-import { Box, CircularProgress, IconButton, TextField } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentDocument, setConversationHistory, updateConversationTitle } from '../../../Redux/ChatSlice';
-import { useHttpClient } from '../../../useHttpClient';
+import { useState } from 'react'
+import { Cancel, Check } from '@mui/icons-material'
+import { Box, CircularProgress, IconButton, TextField } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCurrentDocument, updateConversationTitle } from '../../../Redux/ChatSlice'
+import { useHttpClient } from '../../../useHttpClient'
 
-export default function ChatTitleInput({
+export default function ChatTitleInput ({
   chatId,
   chatTitle,
   setChatTitle,
   setIsEdit
 }) {
-
-  const dispatch = useDispatch();
-  const oldhistory = useSelector((state) => state.chat.conversationHistory);
-  const updatedConversation = useSelector((state) => state.chat.conversationHistory.find((item) => item.checksum === chatId));
+  const dispatch = useDispatch()
+  const oldhistory = useSelector((state) => state.chat.conversationHistory)
+  const currentConversation = useSelector((state) => state.chat.currentDocument)
   console.log('oldhistory', oldhistory)
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const { fetch } = useHttpClient();
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const { fetch } = useHttpClient()
 
   const submitHandler = async () => {
-    if (!chatTitle) return;
+    if (!chatTitle) return
 
-    setLoading(true);
+    setLoading(true)
 
-    await fetch(`/api/edit-title`, {
+    await fetch('/api/edit-title', {
       method: 'PATCH',
       body: JSON.stringify({ title: chatTitle, id: chatId })
     })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log('data', data)
-        setLoading(false);
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data', data)
+        setLoading(false)
 
         if (!data.ok) {
-          setError(true);
+          setError(true)
         } else {
-          setError(false);
-          setIsEdit(false);
-          setChatTitle(chatTitle);
+          setError(false)
+          setIsEdit(false)
+          setChatTitle(chatTitle)
 
           const updatedConversation = {
             ...currentConversation,
             title: chatTitle
-          };
-          
-          dispatch(setCurrentDocument(updatedConversation));
-          
-          const updatedHistoryItem = oldhistory.find(item => item.checksum === chatId);
+          }
+
+          dispatch(setCurrentDocument(updatedConversation))
+
+          const updatedHistoryItem = oldhistory.find(item => item.checksum === chatId)
 
           if (updatedHistoryItem) {
             const updatedItem = {
               ...updatedHistoryItem,
               title: chatTitle
-            };
-            dispatch(updateConversationTitle(updatedItem));
-            console.log('state', state.chat.conversationHistory)
+            }
+            dispatch(updateConversationTitle(updatedItem))
           }
         }
       })
       .catch(() => {
-        setLoading(false);
-        setError(true);
-      });
-  };
+        setLoading(false)
+        setError(true)
+      })
+  }
 
   return (
     <TextField
@@ -73,7 +71,7 @@ export default function ChatTitleInput({
       variant="filled"
       value={chatTitle}
       onChange={(e) => {
-        setChatTitle(e.target.value);
+        setChatTitle(e.target.value)
       }}
       error={error}
       size="small"
@@ -100,34 +98,36 @@ export default function ChatTitleInput({
               }
             }}
           >
-            {loading ? (
+            {loading
+              ? (
               <CircularProgress size={14} />
-            ) : (
+                )
+              : (
               <>
                 <IconButton onClick={() => submitHandler()}>
                   <Check />
                 </IconButton>
                 <IconButton
                   onClick={() => {
-                    setIsEdit(false);
+                    setIsEdit(false)
                   }}
                 >
                   <Cancel />
                 </IconButton>
               </>
-            )}
+                )}
           </Box>
         )
       }}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
-          submitHandler();
+          submitHandler()
           console.log('edit submitted')
-          setIsEdit(false);
+          setIsEdit(false)
         } else if (e.key === 'Escape') {
-          setIsEdit(false);
+          setIsEdit(false)
         }
       }}
     />
-  );
+  )
 }

@@ -1,22 +1,22 @@
-import { toast } from 'react-toastify';
-import { v4 as uuid } from 'uuid';
+import { toast } from 'react-toastify'
+import { v4 as uuid } from 'uuid'
 
-import { useHttpClient } from '../useHttpClient';
+import { useHttpClient } from '../useHttpClient'
 
 export const useChatStream = () => {
-  const { fetch } = useHttpClient();
+  const { fetch } = useHttpClient()
 
   const submitHandler = async ({
     documentId,
     message,
     setNewMessage,
-    setConversations,
+    setConversations
   }) => {
     if (message?.length === 0) {
-      return;
+      return
     }
 
-    const conversationId = uuid().toString();
+    const conversationId = uuid().toString()
 
     setConversations((prev) => {
       return [
@@ -31,8 +31,8 @@ export const useChatStream = () => {
           user: 'ai',
           loader: true
         }
-      ];
-    });
+      ]
+    })
 
     const res = await fetch('/api/inference', {
       method: 'POST',
@@ -44,26 +44,24 @@ export const useChatStream = () => {
         documentId,
         conversationId
       })
-    });
+    })
 
     if (!res.ok) {
-      return handleError(res);
+      return handleError(res)
     }
 
-    let aiMessage = '';
-    const aiMessageId = res.headers.get('ConversationId');
-    const timestamp = new Date().toString();
-    const reader = res.body.getReader();
+    const aiMessageId = res.headers.get('ConversationId')
+    const timestamp = new Date().toString()
+    const reader = res.body.getReader()
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      const { done, value } = await reader.read();
+      const { done, value } = await reader.read()
       if (done) {
-        break;
+        break
       }
 
-      const message = new TextDecoder('utf-8').decode(value);
+      const message = new TextDecoder('utf-8').decode(value)
       if (message) {
-        aiMessage += message;
         setNewMessage((prev) => {
           if (!prev) {
             return {
@@ -71,7 +69,7 @@ export const useChatStream = () => {
               user: 'ai',
               message,
               created_at: timestamp
-            };
+            }
           }
 
           return {
@@ -79,25 +77,24 @@ export const useChatStream = () => {
             user: 'ai',
             message: prev.message + message,
             created_at: timestamp
-          };
-        });
+          }
+        })
       }
     }
-    setNewMessage(null);
+    setNewMessage(null)
     setConversations([])
-  };
+  }
 
   const handleError = async (error) => {
-    console.error({ error });
-
+    console.error({ error })
 
     toast.error('Cannot get the answer. Please try again later.', {
       toastId: 'chat_error',
       position: 'bottom-left'
-    });
-  };
+    })
+  }
 
   return {
     submitHandler
-  };
-};
+  }
+}

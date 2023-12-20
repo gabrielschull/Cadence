@@ -1,9 +1,9 @@
-import { Card, Stack } from '@mui/material';
+import { Card, Stack } from '@mui/material'
 
-import ContentBox from './ContentBox';
-import ResultBox from './ResultBox';
+import ContentBox from './ContentBox'
+import ResultBox from './ResultBox'
 
-export default function SearchResult({ result }) {
+export default function SearchResult ({ result }) {
   return (
     <Stack
       sx={{
@@ -34,5 +34,5 @@ export default function SearchResult({ result }) {
         <ContentBox heading="Matching content" content={result.content} />
       </Card>
     </Stack>
-  );
+  )
 }

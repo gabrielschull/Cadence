@@ -1,4 +1,4 @@
-import { AddBox, HistoryOutlined, Home } from '@mui/icons-material';
+import { AddBox, HistoryOutlined, Home } from '@mui/icons-material'
 import {
   Box,
   Grid,
@@ -7,17 +7,17 @@ import {
   Skeleton,
   Stack,
   Typography
-} from '@mui/material';
+} from '@mui/material'
 
-import { useSelector, useDispatch } from 'react-redux';
-import { setActiveChatId, setOpenDraw } from '../../../Redux/ChatSlice';
-import { useNavigate } from 'react-router-dom';
-import ConversationHistory from './ConversationHistory';
+import { useSelector, useDispatch } from 'react-redux'
+import { setActiveChatId, setOpenDraw } from '../../../Redux/ChatSlice'
+import { useNavigate } from 'react-router-dom'
+import ConversationHistory from './ConversationHistory'
 
-export default function History() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const conversationHistory = useSelector((state) => state.chat.conversationHistory);
+export default function History () {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const conversationHistory = useSelector((state) => state.chat.conversationHistory)
 
   const FallbackSkeleton = () => {
     return (
@@ -43,8 +43,8 @@ export default function History() {
           <Skeleton variant="text" width={100} height={10} />
         </Grid>
       </Grid>
-    );
-  };
+    )
+  }
 
   return (
     <Box
@@ -54,26 +54,26 @@ export default function History() {
         boxShadow: '0px 0px 12px 0px rgb(63,81,181,0.17)',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-end'
 
       }}
     >
       <Grid container textAlign="center" alignItems="center" padding="10px 0px">
         <Grid item xs={1}>
-          
+
             <IconButton
               sx={{
                 color: '#94a4ff'
               }}
               onClick={() => {
-                dispatch(setActiveChatId(null));
-                dispatch(setOpenDraw(false));
+                dispatch(setActiveChatId(null))
+                dispatch(setOpenDraw(false))
                 navigate('/')
               }}
             >
               <Home />
             </IconButton>
-          
+
         </Grid>
         <Grid item xs={9}>
           <Stack
@@ -105,8 +105,8 @@ export default function History() {
               color: '#94a4ff'
             }}
             onClick={() => {
-              dispatch(setActiveChatId(null));
-              dispatch(setOpenDraw(false));
+              dispatch(setActiveChatId(null))
+              dispatch(setOpenDraw(false))
             }}
           >
             <AddBox
@@ -123,12 +123,14 @@ export default function History() {
           height: '100%'
         }}
       >
-        {conversationHistory === null ? (
+        {conversationHistory === null
+          ? (
           <FallbackSkeleton />
-        ) : (
+            )
+          : (
           <ConversationHistory />
-        )}
+            )}
       </List>
     </Box>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import { History, MarkChatRead } from '@mui/icons-material';
-import { Box, Icon, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import { History, MarkChatRead } from '@mui/icons-material'
+import { Box, Icon, Typography } from '@mui/material'
+import { styled } from '@mui/system'
 
 const FeatureBox = styled(Box)({
   backgroundColor: 'black',
@@ -18,11 +18,11 @@ const FeatureBox = styled(Box)({
   transition: 'all 0.3s ease-in-out',
   '&:hover': {
     backgroundColor: 'white',
-    color: 'black',
-  },
-});
+    color: 'black'
+  }
+})
 
-export default function FeatureCards() {
+export default function FeatureCards () {
   const features = [
     {
       title: 'Chat',
@@ -34,7 +34,7 @@ export default function FeatureCards() {
       description: 'View your chat history with your document',
       icon: History
     }
-  ];
+  ]
 
   return (
     <>
@@ -48,5 +48,5 @@ export default function FeatureCards() {
         </FeatureBox>
       ))}
     </>
-  );
+  )
 }

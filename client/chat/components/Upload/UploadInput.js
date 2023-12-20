@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import { Box, Typography } from '@mui/material'
+import { styled } from '@mui/system'
 
 const StyledBox = styled(Box)({
   backgroundColor: 'white',
@@ -9,11 +9,11 @@ const StyledBox = styled(Box)({
   transition: 'all 0.3s ease-in-out',
   '&:hover': {
     backgroundColor: 'black',
-    color: 'white',
-  },
-});
+    color: 'white'
+  }
+})
 
-export default function UploadInput({ getInputProps }) {
+export default function UploadInput ({ getInputProps }) {
   return (
     <>
       <input {...getInputProps()} />
@@ -48,7 +48,5 @@ export default function UploadInput({ getInputProps }) {
         </Typography>
       </StyledBox>
     </>
-  );
+  )
 }
-
-

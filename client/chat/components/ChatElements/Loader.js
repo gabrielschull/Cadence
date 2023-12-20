@@ -1,6 +1,6 @@
-import { Dna } from 'react-loader-spinner';
+import { Dna } from 'react-loader-spinner'
 
-import { Grid } from '@mui/material';
+import { Grid } from '@mui/material'
 
 export const Loader = () => {
   return (
@@ -19,5 +19,5 @@ export const Loader = () => {
     >
       <Dna height={250} width={250} />
     </Grid>
-  );
-};
+  )
+}

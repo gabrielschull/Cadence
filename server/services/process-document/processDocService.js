@@ -41,7 +41,7 @@ const saveDocument = async ({ checksum, fileName, chunks, userId, fileExtension 
 
   if (objectError || object?.length === 0) {
     return {
-      error: objectError || "Couldn't find object in storage"
+      error: objectError || 'Couldn\'t find object in storage'
     };
   }
 
@@ -100,7 +100,7 @@ const saveDocumentChunks = async (checksum, chunks, userId) => {
 
   if (error) {
     console.error(error);
-    console.log('error in processDocService.js')
+    console.log('error in processDocService.js');
     return { error };
   }
 

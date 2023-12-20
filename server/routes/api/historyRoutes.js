@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/history', async (req, res) => {
   const userId = req.query.userId;
-  console.log('userId', userId)
+  console.log('userId', userId);
   try {
     const { data: documents, error } = await supabase
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE)

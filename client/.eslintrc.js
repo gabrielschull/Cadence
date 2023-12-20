@@ -1,7 +1,14 @@
 module.exports = {
+  root: true,
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
+    jest: true
   },
   extends: [
     'standard',
@@ -30,6 +37,8 @@ module.exports = {
   ],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn'
+    'react-hooks/exhaustive-deps': 'warn',
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off'
   }
 }

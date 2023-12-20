@@ -1,30 +1,30 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react'
 
-import { useHttpClient } from '../../../useHttpClient';
-import { ExpandMoreRounded } from '@mui/icons-material';
-import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { useHttpClient } from '../../../useHttpClient'
+import { ExpandMoreRounded } from '@mui/icons-material'
+import { Box, IconButton, Menu, MenuItem, Typography } from '@mui/material'
 
-export default function ChatMenu({ showMenu, chatId, setConversations, user }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const { fetch } = useHttpClient();
+export default function ChatMenu ({ showMenu, chatId, setConversations, user }) {
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
+  const { fetch } = useHttpClient()
 
   const handleDelete = useCallback(() => {
     fetch(`/api/chat/message/${chatId}`, {
       method: 'DELETE'
     }).then((res) => {
       if (res.ok) {
-        setAnchorEl(null);
+        setAnchorEl(null)
         setConversations((prev) => {
-          return prev.filter((item) => item.id !== chatId);
-        });
-        return;
+          return prev.filter((item) => item.id !== chatId)
+        })
+        return
       }
 
-      setAnchorEl(null);
-    });
+      setAnchorEl(null)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatId, setConversations]);
+  }, [chatId, setConversations])
 
   return (
     <Box
@@ -44,7 +44,7 @@ export default function ChatMenu({ showMenu, chatId, setConversations, user }) {
           position: 'absolute'
         }}
         onClick={(e) => {
-          setAnchorEl(e.currentTarget);
+          setAnchorEl(e.currentTarget)
         }}
       >
         {showMenu && (
@@ -70,7 +70,7 @@ export default function ChatMenu({ showMenu, chatId, setConversations, user }) {
           horizontal: 'right'
         }}
         onClose={() => {
-          setAnchorEl(null);
+          setAnchorEl(null)
         }}
         sx={{
           '.MuiMenu-paper > *': {
@@ -84,5 +84,5 @@ export default function ChatMenu({ showMenu, chatId, setConversations, user }) {
         </MenuItem>
       </Menu>
     </Box>
-  );
+  )
 }

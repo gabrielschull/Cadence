@@ -1,10 +1,10 @@
-import format from 'date-fns/format';
-import { memo, useEffect, useRef, useState } from 'react';
-import { ThreeDots } from 'react-loader-spinner';
+import format from 'date-fns/format'
+import { memo, useEffect, useRef, useState } from 'react'
+import { ThreeDots } from 'react-loader-spinner'
 
-import CadenceLogo from '../../../CadenceLogo.png';
-import CodeBlock from '../CodeBock';
-import { Face6 } from '@mui/icons-material';
+import CadenceLogo from '../../../CadenceLogo.png'
+import CodeBlock from '../CodeBock'
+import { Face6 } from '@mui/icons-material'
 import {
   Box,
   Card,
@@ -13,18 +13,18 @@ import {
   ListItem,
   ListItemButton,
   Typography
-} from '@mui/material';
+} from '@mui/material'
 
-import ChatMenu from './ChatMenu.js';
+import ChatMenu from './ChatMenu.js'
 
-export default memo(function ChatItem({
+export default memo(function ChatItem ({
   conversation,
   setConversations,
   autoFocus
 }) {
-  const [showMenu, setShowMenu] = useState(false);
-  const isMathJaxLoaded = useRef(false);
-  const scrollRef = useRef(null);
+  const [showMenu, setShowMenu] = useState(false)
+  const isMathJaxLoaded = useRef(false)
+  const scrollRef = useRef(null)
 
   let styles = {
     background: '#4b637d',
@@ -32,29 +32,29 @@ export default memo(function ChatItem({
     justifyContent: 'flex-end',
     icon: <Face6 />,
     iconColor: '#92aac3'
-  };
+  }
 
-  if (conversation && conversation.user == 'ai') {
+  if (conversation && conversation.user === 'ai') {
     styles = {
       ...styles,
       background: '#1f232d ',
       color: '#ffffff',
       justifyContent: 'flex-start',
-      icon: <img src={CadenceLogo} alt='Cadence Logo' style={{width: '25px', height: '25px'}}/>,
+      icon: <img src={CadenceLogo} alt='Cadence Logo' style={{ width: '25px', height: '25px' }}/>,
       iconColor: '#8990a1'
-    };
+    }
   }
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [conversation?.message, conversation?.length]);
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [conversation?.message, conversation?.length])
 
   useEffect(() => {
     if (isMathJaxLoaded.current) {
-      return;
+      return
     }
 
-    isMathJaxLoaded.current = true;
+    isMathJaxLoaded.current = true
     if (typeof window?.MathJax !== 'undefined') {
       window.MathJax = {
         ...window.MathJax,
@@ -70,12 +70,12 @@ export default memo(function ChatItem({
           }
         },
         loader: { load: ['[tex]/mhchem', '[tex]/color'] }
-      };
+      }
 
-      window.MathJax.typesetClear();
-      window.MathJax.typesetPromise();
+      window.MathJax.typesetClear()
+      window.MathJax.typesetPromise()
     }
-  }, []);
+  }, [])
 
   if (conversation && conversation.user === 'ai' && conversation.loader) {
     return (
@@ -98,19 +98,19 @@ export default memo(function ChatItem({
           <Typography variant="body1">AI is thinking...</Typography>
         </Box>
       </ListItem>
-    );
+    )
   }
 
   const TimeStamp = ({ conversation }) => {
-    let formattedTimestamp;
+    let formattedTimestamp
     try {
       formattedTimestamp = format(
         new Date(conversation.created_at),
         'dd MMM y, hh:mm aaa'
-      );
+      )
     } catch (e) {
-      console.error(e);
-      return;
+      console.error(e)
+      return
     }
 
     return (
@@ -133,8 +133,8 @@ export default memo(function ChatItem({
           {formattedTimestamp}
         </Typography>
       </Box>
-    );
-  };
+    )
+  }
 
   return (
     <ListItem>
@@ -192,10 +192,10 @@ export default memo(function ChatItem({
                   userSelect: 'text'
                 }}
                 onMouseEnter={() => {
-                  setShowMenu(true);
+                  setShowMenu(true)
                 }}
                 onMouseLeave={() => {
-                  setShowMenu(false);
+                  setShowMenu(false)
                 }}
               >
                 <ChatMenu
@@ -214,5 +214,5 @@ export default memo(function ChatItem({
         )}
       </ListItemButton>
     </ListItem>
-  );
-});
+  )
+})

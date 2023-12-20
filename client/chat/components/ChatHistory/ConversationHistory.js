@@ -1,15 +1,14 @@
-import { ListItem, ListItemText, Typography } from '@mui/material';
+import { ListItem, ListItemText, Typography } from '@mui/material'
 
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
-import HistoryListItem from './HistoryListItem';
+import HistoryListItem from './HistoryListItem'
 
-export default function ConversationHistory() {
-  
-  const conversationHistory = useSelector((state) => state.chat.conversationHistory);
-  const activeChatId = useSelector((state) => state.chat.activeChatId);
-  console.log('activeChatId', activeChatId);
-  console.log('conversationHistory', conversationHistory);
+export default function ConversationHistory () {
+  const conversationHistory = useSelector((state) => state.chat.conversationHistory)
+  const activeChatId = useSelector((state) => state.chat.activeChatId)
+  console.log('activeChatId', activeChatId)
+  console.log('conversationHistory', conversationHistory)
 
   return (
     <>
@@ -42,5 +41,5 @@ export default function ConversationHistory() {
         />
       ))}
     </>
-  );
+  )
 }

@@ -47,7 +47,7 @@ const search = async (query) => {
 };
 
 const findClosestVector = async (query) => {
-  console.log('query searchService', query)
+  console.log('query searchService', query);
   const { data, error } = await supabase.rpc('search_documents', {
     query_embedding: await openAIEmbedding.embedQuery(query),
     match_count: 5
@@ -57,7 +57,7 @@ const findClosestVector = async (query) => {
     console.error(error);
     return { error };
   }
-  console.log('Data returned by search_documents', data)
+  console.log('Data returned by search_documents', data);
 
   const combinedContent = data.map((d) => d.chunk_content).join(' ');
 

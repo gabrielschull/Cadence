@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Dna } from 'react-loader-spinner';
-import { toast } from 'react-toastify';
+import React, { useState } from 'react'
+import { Dna } from 'react-loader-spinner'
+import { toast } from 'react-toastify'
 
-import { useHttpClient } from '../../useHttpClient';
-import { Grid, Stack, Typography } from '@mui/material';
+import { useHttpClient } from '../../useHttpClient'
+import { Grid, Stack, Typography } from '@mui/material'
 
-import ChatInput from '../../chat/components/ChatElements/ChatInput';
-import SearchResult from './SearchResult';
+import ChatInput from '../../chat/components/ChatElements/ChatInput'
+import SearchResult from './SearchResult'
 
-export default function Search() {
-  const [searchResult, setSearchResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const { fetch } = useHttpClient();
+export default function Search () {
+  const [searchResult, setSearchResult] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const { fetch } = useHttpClient()
 
   const submitHandler = async (query) => {
-    setSearchResult(null);
-    setLoading(true);
+    setSearchResult(null)
+    setLoading(true)
     const { result } = await fetch('/api/search', {
       method: 'POST',
       headers: {
@@ -26,16 +26,16 @@ export default function Search() {
       })
     })
       .then((res) => {
-        setLoading(false);
-        return res.json();
+        setLoading(false)
+        return res.json()
       })
       .catch((err) => {
-        console.error(err);
-        setLoading(false);
-        toast.error('Search failed with error :', err);
-      });
-      setSearchResult(result);
-  };
+        console.error(err)
+        setLoading(false)
+        toast.error('Search failed with error :', err)
+      })
+    setSearchResult(result)
+  }
 
   return (
     <Grid
@@ -106,5 +106,5 @@ export default function Search() {
         )}
       </Grid>
     </Grid>
-  );
+  )
 }

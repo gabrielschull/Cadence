@@ -1,28 +1,24 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { MemoryRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'
+import { MemoryRouter as Router, Routes, Route } from 'react-router-dom'
 
 import Home from './chat/components/Home'
-import SignOut from './signout/SignOutButton';
-import Search from './search/components/Search';
-import Login from './login/Login';
-import ProfileSetup from './profile/ProfileSetup';
-import withAuthProtection from './withAuthProtection';
-import ChatWrapper from './chat/chatWrapper';
+import SignOut from './signout/SignOutButton'
+import Search from './search/components/Search'
+import Login from './login/Login'
+import ProfileSetup from './profile/ProfileSetup'
+import withAuthProtection from './withAuthProtection'
+import ChatWrapper from './chat/chatWrapper'
 
+function App () {
+  const ProtectedProfileSetup = withAuthProtection(ProfileSetup)
+  const ProtectedHomePage = withAuthProtection(HomePage)
 
-function App() {
-  
-  const ProtectedProfileSetup = withAuthProtection(ProfileSetup);
-  const ProtectedHomePage = withAuthProtection(HomePage);
-
-  function HomePage() {
-
-    const authState = useSelector((state) => state.user.authState);
+  function HomePage () {
+    const authState = useSelector((state) => state.user.authState)
     console.log('authState', authState)
-    const userInfo = useSelector((state) => state.user.user);
+    const userInfo = useSelector((state) => state.user.user)
     console.log('userInfo', userInfo)
-    
+
     return (
       <>
       <ChatWrapper>
@@ -45,7 +41,7 @@ function App() {
         </Routes>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

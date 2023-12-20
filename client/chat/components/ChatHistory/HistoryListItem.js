@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-import { HistoryEdu } from '@mui/icons-material';
+import { HistoryEdu } from '@mui/icons-material'
 import {
   ListItem,
   ListItemButton,
@@ -8,29 +8,28 @@ import {
   ListItemText,
   Tooltip,
   Typography
-} from '@mui/material';
+} from '@mui/material'
 
-import { useSelector, useDispatch } from 'react-redux';
-import { setActiveChatId, setCurrentDocument, setOpenDraw } from '../../../Redux/ChatSlice';
-import ActionButtons from './ActionButtons';
-import ChatTitleInput from './ChatTitleInput';
-import DeleteDialog from './DeleteDialog';
+import { useDispatch } from 'react-redux'
+import { setActiveChatId, setCurrentDocument, setOpenDraw } from '../../../Redux/ChatSlice'
+import ActionButtons from './ActionButtons'
+import ChatTitleInput from './ChatTitleInput'
+import DeleteDialog from './DeleteDialog'
 
-export default function HistoryListItem({ isActive, conversation }) {
+export default function HistoryListItem ({ isActive, conversation }) {
+  const dispatch = useDispatch()
 
-  const dispatch = useDispatch();
-
-  const [isEdit, setIsEdit] = useState(false);
-  const [chatToDelete, setChatToDelete] = useState(null);
-  const [chatTitle, setChatTitle] = useState(conversation.title);
+  const [isEdit, setIsEdit] = useState(false)
+  const [chatToDelete, setChatToDelete] = useState(null)
+  const [chatTitle, setChatTitle] = useState(conversation.title)
 
   useEffect(() => {
     return () => {
-      setIsEdit(false);
-      setChatToDelete(null);
-      setChatTitle(conversation.title);
-    };
-  }, [conversation.title, isActive]);
+      setIsEdit(false)
+      setChatToDelete(null)
+      setChatTitle(conversation.title)
+    }
+  }, [conversation.title, isActive])
 
   return (
     <ListItem
@@ -56,14 +55,14 @@ export default function HistoryListItem({ isActive, conversation }) {
           fontSize: '12px'
         }}
         onClick={() => {
-          dispatch(setActiveChatId(conversation.checksum));
+          dispatch(setActiveChatId(conversation.checksum))
           dispatch(setCurrentDocument({
             title: conversation.title,
             id: conversation.checksum,
             fileName: conversation.document_name,
             content: conversation.content
-          }));
-          dispatch(setOpenDraw(false));
+          }))
+          dispatch(setOpenDraw(false))
         }}
       >
         <ListItemIcon>
@@ -83,7 +82,8 @@ export default function HistoryListItem({ isActive, conversation }) {
                 width: '90%'
               }}
             >
-              {isActive && isEdit ? (
+              {isActive && isEdit
+                ? (
                 <ChatTitleInput
                   chatId={conversation.checksum}
                   chatTitle={chatTitle}
@@ -91,9 +91,10 @@ export default function HistoryListItem({ isActive, conversation }) {
                   setIsEdit={setIsEdit}
                   setCurrentDocument={(document) => dispatch(setCurrentDocument(document))}
                 />
-              ) : (
-                conversation.title
-              )}
+                  )
+                : (
+                    conversation.title
+                  )}
             </Typography>
           </Tooltip>
         </ListItemText>
@@ -106,5 +107,5 @@ export default function HistoryListItem({ isActive, conversation }) {
         />
       )}
     </ListItem>
-  );
+  )
 }

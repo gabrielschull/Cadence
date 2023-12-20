@@ -1,7 +1,7 @@
-import { DeleteForever, Edit } from '@mui/icons-material';
-import { IconButton, ListItemIcon } from '@mui/material';
+import { DeleteForever, Edit } from '@mui/icons-material'
+import { IconButton, ListItemIcon } from '@mui/material'
 
-export default function ActionButtons({ chatId, setIsEdit, setChatToDelete }) {
+export default function ActionButtons ({ chatId, setIsEdit, setChatToDelete }) {
   return (
     <>
       <ListItemIcon
@@ -13,7 +13,7 @@ export default function ActionButtons({ chatId, setIsEdit, setChatToDelete }) {
       >
         <IconButton
           onClick={() => {
-            setIsEdit((prev) => !prev);
+            setIsEdit((prev) => !prev)
           }}
         >
           <Edit
@@ -38,7 +38,7 @@ export default function ActionButtons({ chatId, setIsEdit, setChatToDelete }) {
       >
         <IconButton
           onClick={() => {
-            setChatToDelete(chatId);
+            setChatToDelete(chatId)
           }}
         >
           <DeleteForever
@@ -56,5 +56,5 @@ export default function ActionButtons({ chatId, setIsEdit, setChatToDelete }) {
         </IconButton>
       </ListItemIcon>
     </>
-  );
+  )
 }

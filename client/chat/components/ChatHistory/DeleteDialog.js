@@ -1,21 +1,21 @@
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
-import { useHttpClient } from '../../../useHttpClient';
+import { useHttpClient } from '../../../useHttpClient'
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle
-} from '@mui/material';
+} from '@mui/material'
 
-import { setActiveChatId } from '../../../Redux/ChatSlice';
-import { useDispatch } from 'react-redux';
+import { setActiveChatId } from '../../../Redux/ChatSlice'
+import { useDispatch } from 'react-redux'
 
-export default function DeleteDialog({ chatToDelete, setChatToDelete }) {
-  const dispatch = useDispatch();
+export default function DeleteDialog ({ chatToDelete, setChatToDelete }) {
+  const dispatch = useDispatch()
 
-  const { fetch } = useHttpClient();
+  const { fetch } = useHttpClient()
 
   return (
     <Dialog
@@ -42,8 +42,8 @@ export default function DeleteDialog({ chatToDelete, setChatToDelete }) {
           color="secondary"
           variant="text"
           onClick={() => {
-            setChatToDelete(null);
-            dispatch(setActiveChatId(null));
+            setChatToDelete(null)
+            dispatch(setActiveChatId(null))
           }}
         >
           Cancel
@@ -57,20 +57,20 @@ export default function DeleteDialog({ chatToDelete, setChatToDelete }) {
               method: 'DELETE'
             })
               .then(() => {
-                dispatch(setActiveChatId(null));
-                setChatToDelete(null);
+                dispatch(setActiveChatId(null))
+                setChatToDelete(null)
 
-                toast.success('Chat history deleted successfully');
+                toast.success('Chat history deleted successfully')
               })
               .catch((error) => {
-                console.error({ error });
-                toast.error('Error deleting chat history');
-              });
+                console.error({ error })
+                toast.error('Error deleting chat history')
+              })
           }}
         >
           Confirm
         </Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }

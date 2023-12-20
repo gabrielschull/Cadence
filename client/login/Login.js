@@ -1,70 +1,69 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabaseClient } from '../supabaseClient';
-import { Box, Container, Stack, Typography } from '@mui/material';
-import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { useDispatch } from 'react-redux';
-import { setAuthState } from '../Redux/UserSlice'; 
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { supabaseClient } from '../supabaseClient'
+import { Box, Container, Stack, Typography } from '@mui/material'
+import { Auth } from '@supabase/auth-ui-react'
+import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { useDispatch } from 'react-redux'
+import { setAuthState } from '../Redux/UserSlice'
 
-export default function Login() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    
-    useEffect(() => {
-        supabaseClient.auth.onAuthStateChange(async (event, session) => {
-        
-        dispatch(setAuthState({ event, session }));
+export default function Login () {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    supabaseClient.auth.onAuthStateChange(async (event, session) => {
+      dispatch(setAuthState({ event, session }))
 
       if (event === 'SIGNED_OUT') {
-        navigate('/login');
+        navigate('/login')
       }
       if (event === 'SIGNED_IN') {
-        //check if user row exists in supabase
-        const {data: users, error} = await supabaseClient
-        .from('users')
-        .select('id')
-        .eq('id', session.user.id)
+        // check if user row exists in supabase
+        const { data: users, error } = await supabaseClient
+          .from('users')
+          .select('id')
+          .eq('id', session.user.id)
 
         if (error) {
-          console.error('Error fetching user data:', error);
+          console.error('Error fetching user data:', error)
         } else if (users.length === 0) {
-          //if user row does not exist, insert user row with initial info
-        const { error: insertError } = await supabaseClient
-        .from('users')
-        .insert([
-          {
-            id: session.user.id,
-            isFirstLogin: true,
-            email: session.user.email,
-            name: '',
-            position: '',
-            company: '',
+          // if user row does not exist, insert user row with initial info
+          const { error: insertError } = await supabaseClient
+            .from('users')
+            .insert([
+              {
+                id: session.user.id,
+                isFirstLogin: true,
+                email: session.user.email,
+                name: '',
+                position: '',
+                company: ''
+              }
+            ])
+          if (insertError) {
+            console.error('Error inserting user data:', insertError)
           }
-        ])
-        if (insertError) {
-          console.error('Error inserting user data:', insertError);
         }
       }
-    }
 
       if (session?.access_token) {
         const { data: user, error } = await supabaseClient
-        .from('users')
-        .select('isFirstLogin')
-        .eq('id', session.user.id)
-        .single();
-      
+          .from('users')
+          .select('isFirstLogin')
+          .eq('id', session.user.id)
+          .single()
+
         if (error) {
-          console.error('Error fetching user data:', error);
+          console.error('Error fetching user data:', error)
         } else if (user && user.isFirstLogin) {
-        navigate('/profile-setup');
-        }  else {
-        navigate('/');
+          navigate('/profile-setup')
+        } else {
+          navigate('/')
         }
       }
-    });
-  }, [dispatch, navigate]);
+    })
+  }, [dispatch, navigate])
 
   return (
 <Container
@@ -130,5 +129,5 @@ export default function Login() {
         />
       </Box>
     </Container>
-  );
+  )
 }

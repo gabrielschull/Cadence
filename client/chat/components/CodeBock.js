@@ -1,9 +1,9 @@
-import Markdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import remarkGfm from 'remark-gfm';
+import Markdown from 'react-markdown'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import remarkGfm from 'remark-gfm'
 
-export default function CodeBlock({ message }) {
+export default function CodeBlock ({ message }) {
   return (
     <div
       style={{
@@ -13,7 +13,7 @@ export default function CodeBlock({ message }) {
       <Markdown
         remarkPlugins={[remarkGfm]}
         components={{
-          code({ inline, ...props }) {
+          code ({ inline, ...props }) {
             if (message && message.indexOf('```') === -1) {
               return message.split('\n').map((m, idx) => {
                 return (
@@ -21,13 +21,14 @@ export default function CodeBlock({ message }) {
                     <div>{m}</div>
                     {idx !== message.split('\n').length - 1 && <br />}
                   </div>
-                );
-              });
+                )
+              })
             }
 
-            const match = /language-(\w+)/.exec(props.className || '');
+            const match = /language-(\w+)/.exec(props.className || '')
 
-            return !inline && match ? (
+            return !inline && match
+              ? (
               <SyntaxHighlighter
                 style={{
                   ...atomDark,
@@ -39,16 +40,17 @@ export default function CodeBlock({ message }) {
               >
                 {String(props.children).replace(/\n$/, '')}
               </SyntaxHighlighter>
-            ) : (
+                )
+              : (
               <code {...props} className="language-javascript">
                 {props.children}
               </code>
-            );
+                )
           }
         }}
       >
         {message}
       </Markdown>
     </div>
-  );
+  )
 }

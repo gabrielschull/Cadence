@@ -35,17 +35,17 @@ const processInference = async ({
       
       {
 
-        async handleLLMNewToken(token) {
-          console.log('TOKEN', token)
+        async handleLLMNewToken (token) {
+          console.log('TOKEN', token);
           
-            //await writer.ready;
-            //await writer.write(token);
-            aiMessage += token;
-            console.log('aiMessage', aiMessage)
+          //await writer.ready;
+          //await writer.write(token);
+          aiMessage += token;
+          console.log('aiMessage', aiMessage);
           
            
         },
-        async handleChainEnd() {
+        async handleChainEnd () {
           
           if (chainSequence === 1) {
             try {
@@ -54,11 +54,11 @@ const processInference = async ({
                 message: aiMessage,
                 checksum: documentId,
                 actor: 'ai'
-              })
+              });
               writer.close();
-            } catch(error) {
+            } catch (error) {
               console.error({ error }, 'error saving ai message');
-            };
+            }
             
           }
           chainSequence -= 1;

@@ -1,76 +1,72 @@
-import { useCallback,useEffect, useRef, useState } from 'react';
-import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearCurrentDocument, clearActiveChat } from '../../../Redux/ChatSlice';
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearCurrentDocument, clearActiveChat } from '../../../Redux/ChatSlice'
 
-import { useHttpClient } from '../../../useHttpClient';
-import { Alert, Grid, List, Typography } from '@mui/material';
+import { useHttpClient } from '../../../useHttpClient'
+import { Alert, Grid, List, Typography } from '@mui/material'
 
-import { useChatStream } from '../../useChatStream';
-import ChatHeader from './ChatHeader';
-import ChatInput from './ChatInput';
-import ChatItem from './ChatItem';
-import { Loader } from './Loader';
+import { useChatStream } from '../../useChatStream'
+import ChatHeader from './ChatHeader'
+import ChatInput from './ChatInput'
+import ChatItem from './ChatItem'
+import { Loader } from './Loader'
 
-export default function ChatContainer() {
-
-  const dispatch = useDispatch();
-  const activeChatId = useSelector((state) => state.chat.activeChatId);
-  const currentDocument = useSelector((state) => state.chat.currentDocument);
-  const userInfo = useSelector((state) => state.user.userInfo);
+export default function ChatContainer () {
+  const dispatch = useDispatch()
+  const activeChatId = useSelector((state) => state.chat.activeChatId)
+  const currentDocument = useSelector((state) => state.chat.currentDocument)
+  const userInfo = useSelector((state) => state.user.userInfo)
   console.log('userInfo', userInfo)
 
-  const [conversations, setConversations] = useState([]);
-  const [newMessage, setNewMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const scrollRef = useRef(null);
+  const [conversations, setConversations] = useState([])
+  const [newMessage, setNewMessage] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const scrollRef = useRef(null)
 
-  const { fetch } = useHttpClient();
+  const { fetch } = useHttpClient()
 
-  const { submitHandler } = useChatStream();
+  const { submitHandler } = useChatStream()
 
-  
   const chatRecords = useCallback(async () => {
-    setLoading(true);
+    setLoading(true)
     try {
       const res = await fetch(`/api/chat-records/${activeChatId}`, {
-        method: 'GET',
-      });
-      console.log('res', res);
-      setLoading(false);
-      const data = await res.json();
-      console.log('data', data);
+        method: 'GET'
+      })
+      console.log('res', res)
+      setLoading(false)
+      const data = await res.json()
+      console.log('data', data)
       setConversations(prev => {
-        const existingIds = new Set(prev.map(msg => msg.id));
+        const existingIds = new Set(prev.map(msg => msg.id))
         const newMessages = data.filter(item => !existingIds.has(item.id)).map(item => ({
           id: item.id,
           user: item.actor,
           message: item.message,
           created_at: item.created_at
-        }));
-        return [...prev, ...newMessages];
-      });
+        }))
+        return [...prev, ...newMessages]
+      })
     } catch (err) {
-      setLoading(false);
-      console.error(err);
+      setLoading(false)
+      console.error(err)
       toast.error('Cannot fetch chat records. Please try again later.', {
         toastId: 'chat_error'
-      });
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeChatId]);
-  
-  useEffect(() => {
-    setConversations([]);
-    chatRecords();
-    
-  }, [activeChatId, chatRecords]);
+  }, [activeChatId])
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
-    console.log('activeChatId', activeChatId)
-  }, [conversations.length]);
-  
+    setConversations([])
+    chatRecords()
+  }, [activeChatId, chatRecords])
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [conversations.length])
+
   return (
     <Grid container flexDirection="column" height="100%">
       {conversations && conversations.length > 0 && <ChatHeader />}
@@ -88,12 +84,13 @@ export default function ChatContainer() {
           overflow: 'hidden'
         }}
       >
-        {conversations.length === 0 ? (
+        {conversations.length === 0
+          ? (
           <>
           <button onClick={() => {
-          dispatch(clearCurrentDocument())
-          dispatch(clearActiveChat())
-           }}>Clear</button>
+            dispatch(clearCurrentDocument())
+            dispatch(clearActiveChat())
+          }}>Clear</button>
             <Typography sx={{ color: 'black', padding: '20px 0px' }}>
               Cadence is here to help!
             </Typography>
@@ -101,7 +98,8 @@ export default function ChatContainer() {
               Ask anything about <b>{currentDocument?.title}</b>
             </Alert>
           </>
-        ) : (
+            )
+          : (
           <List
             height={800}
             ref={scrollRef}
@@ -114,14 +112,14 @@ export default function ChatContainer() {
             }}
           >
             {conversations.map((conversation) => {
-              const key=`${conversation.created_at}-${conversation.user}`
+              const key = `${conversation.created_at}-${conversation.user}`
               return (
                 <ChatItem
                   key={key}
                   conversation={conversation}
                   setConversations={setConversations}
                 />
-              );
+              )
             })}
             {newMessage && (
               <ChatItem
@@ -132,24 +130,26 @@ export default function ChatContainer() {
             )}
             <ChatItem autoFocus={true} />
           </List>
-        )}
+            )}
       </Grid>
-      {loading ? (
+      {loading
+        ? (
         <Loader />
-      ) : (
+          )
+        : (
         <ChatInput
           submitHandler={(message) => {
             submitHandler({
               documentId: activeChatId,
               message,
               setNewMessage,
-              setConversations,
+              setConversations
             }).then(() => {
-              chatRecords();
-            });
+              chatRecords()
+            })
           }}
         />
-      )}
+          )}
     </Grid>
-  );
+  )
 }

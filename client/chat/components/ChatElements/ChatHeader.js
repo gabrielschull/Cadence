@@ -1,11 +1,10 @@
-import { supabaseClient } from '../../../supabaseClient';
-import { Download } from '@mui/icons-material';
-import { Grid, IconButton, Stack, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { supabaseClient } from '../../../supabaseClient'
+import { Download } from '@mui/icons-material'
+import { Grid, IconButton, Stack, Typography } from '@mui/material'
+import { useSelector } from 'react-redux'
 
-export default function ChatHeader() {
-    
-  const currentDocument = useSelector((state) => state.chat.currentDocument);
+export default function ChatHeader () {
+  const currentDocument = useSelector((state) => state.chat.currentDocument)
 
   return (
     <Grid
@@ -32,7 +31,7 @@ export default function ChatHeader() {
         }}
       >
         <IconButton size="large">
-        
+
         </IconButton>
         <Stack
           color="#ffffff"
@@ -68,35 +67,34 @@ export default function ChatHeader() {
             margin: '0px 20px'
           }}
           onClick={async () => {
-            if (!currentDocument) return;
+            if (!currentDocument) return
 
-            const fileExtension = currentDocument?.fileName.split('.').pop();
-            let mimeType = 'application/octet-stream';
+            const fileExtension = currentDocument?.fileName.split('.').pop()
+            let mimeType = 'application/octet-stream'
 
             if (fileExtension === 'pdf') {
-              mimeType = 'application/pdf';
+              mimeType = 'application/pdf'
             } else if (fileExtension === 'csv') {
-              mimeType = 'text/csv';
+              mimeType = 'text/csv'
             }
 
             try {
-
-            const { data } = await supabaseClient.storage
-              .from(process.env.REACT_APP_SUPABASE_BUCKET)
-              .download(`${currentDocument?.id}.${fileExtension}`);
+              const { data, error } = await supabaseClient.storage
+                .from(process.env.REACT_APP_SUPABASE_BUCKET)
+                .download(`${currentDocument?.id}.${fileExtension}`)
 
               if (error) {
                 throw error
               }
 
-            await data.arrayBuffer().then((buffer) => {
-              const blob = new Blob([buffer], { type: 'application/pdf' });
-              const url = URL.createObjectURL(blob);
-              window.open(url);
-            });
-          } catch (error) {
-            console.error('Error downloading file', error);
-          }
+              await data.arrayBuffer().then((buffer) => {
+                const blob = new Blob([buffer], { type: mimeType })
+                const url = URL.createObjectURL(blob)
+                window.open(url)
+              })
+            } catch (error) {
+              console.error('Error downloading file', error)
+            }
           }}
         >
           <Download
@@ -108,5 +106,5 @@ export default function ChatHeader() {
         </IconButton>
       </Grid>
     </Grid>
-  );
+  )
 }

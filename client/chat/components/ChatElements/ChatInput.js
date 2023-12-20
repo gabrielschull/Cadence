@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { KeyboardArrowRight, Search, Send } from '@mui/icons-material';
-import { Grid, IconButton, InputAdornment, TextField } from '@mui/material';
+import { KeyboardArrowRight, Search, Send } from '@mui/icons-material'
+import { Grid, IconButton, InputAdornment, TextField } from '@mui/material'
 
-export default function ChatInput({ submitHandler, placeHolder, mode }) {
-  const [input, setInput] = useState('');
+export default function ChatInput ({ submitHandler, placeHolder, mode }) {
+  const [input, setInput] = useState('')
 
   return (
     <form
@@ -12,12 +12,12 @@ export default function ChatInput({ submitHandler, placeHolder, mode }) {
         marginBottom: '60px'
       }}
       onSubmit={(e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         if (mode !== 'search') {
-          setInput('');
+          setInput('')
         }
-        submitHandler(input);
+        submitHandler(input)
       }}
     >
       <Grid
@@ -55,7 +55,7 @@ export default function ChatInput({ submitHandler, placeHolder, mode }) {
             variant="outlined"
             placeholder={placeHolder || 'Type your message here...'}
             onChange={(e) => {
-              setInput(e.target.value);
+              setInput(e.target.value)
             }}
             sx={{
               borderRadius: '10px 0px 0px 10px',
@@ -99,22 +99,24 @@ export default function ChatInput({ submitHandler, placeHolder, mode }) {
               height: '100%'
             }}
           >
-            {mode === 'search' ? (
+            {mode === 'search'
+              ? (
               <Search
                 sx={{
                   color: '#ffffff'
                 }}
               />
-            ) : (
+                )
+              : (
               <Send
                 sx={{
                   color: '#ffffff'
                 }}
               />
-            )}
+                )}
           </IconButton>
         </Grid>
       </Grid>
     </form>
-  );
+  )
 }

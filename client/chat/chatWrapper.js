@@ -1,32 +1,30 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setActiveChatId, setConversationHistory } from "../Redux/ChatSlice";
-import { useHttpClient } from "../useHttpClient";
-import { useSelector } from "react-redux";
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setConversationHistory } from '../Redux/ChatSlice'
+import { useHttpClient } from '../useHttpClient'
 
 const ChatWrapper = ({ children }) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-    const { fetch } = useHttpClient();
-    const activeChatId = useSelector((state) => state.chat.activeChatId);
-    const session = useSelector((state) => state.user.authState.session);
-    const userId = session?.user?.id
+  const { fetch } = useHttpClient()
+  const activeChatId = useSelector((state) => state.chat.activeChatId)
+  const session = useSelector((state) => state.user.authState.session)
+  const userId = session?.user?.id
+
+  useEffect(() => {
     if (!userId) {
-        return null;
+      return
     }
-    console.log ('CHATWRAPPER userId', userId)
-    console.log('chatwrapper rendered')
-    useEffect(() => {
-        console.log('chatwrapper useEffect UserId', userId)
-        const loadHistory = async () => {
-        const response = await fetch(`/api/history?userId=${userId}`);
-        const data = await response.json();
-        dispatch(setConversationHistory(data));
+    console.log('chatwrapper useEffect UserId', userId)
+    const loadHistory = async () => {
+      const response = await fetch(`/api/history?userId=${userId}`)
+      const data = await response.json()
+      dispatch(setConversationHistory(data))
     }
-        loadHistory(); 
-    }, [dispatch, fetch, activeChatId]);
+    loadHistory()
+  }, [dispatch, fetch, activeChatId, userId])
 
-    return children;
-    }
+  return children
+}
 
-export default ChatWrapper;
+export default ChatWrapper

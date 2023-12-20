@@ -1,6 +1,6 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material'
 
-export default function ContentBox({ heading, content }) {
+export default function ContentBox ({ heading, content }) {
   return (
     <Box
       sx={{
@@ -19,5 +19,5 @@ export default function ContentBox({ heading, content }) {
         <Typography variant="subtitle1">{content}</Typography>
       </Box>
     </Box>
-  );
+  )
 }

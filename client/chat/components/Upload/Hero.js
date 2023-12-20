@@ -1,61 +1,59 @@
-import { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { toast } from 'react-toastify';
-import { useSelector, useDispatch } from 'react-redux';
-import { CloudUpload, UploadFileRounded } from '@mui/icons-material';
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { useCallback, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import { toast } from 'react-toastify'
+import { useSelector, useDispatch } from 'react-redux'
+import { CloudUpload, UploadFileRounded } from '@mui/icons-material'
+import { Box, Stack, Typography } from '@mui/material'
 
-import { supabaseClient } from '../../../supabaseClient';
-import { useHttpClient } from '../../../useHttpClient';
+import { supabaseClient } from '../../../supabaseClient'
+import { useHttpClient } from '../../../useHttpClient'
 
-import FeatureCards from './FeatureCards';
-import Loader from './Loader';
-import UploadInput from './UploadInput';
-import { generateChecksum } from './checksum';
-import { extractDocumentContent } from './contentExtractor';
-import { setActiveChatId, setCurrentDocument } from '../../../Redux/ChatSlice';
-import { is } from 'date-fns/locale';
+import FeatureCards from './FeatureCards'
+import Loader from './Loader'
+import UploadInput from './UploadInput'
+import { generateChecksum } from './checksum'
+import { extractDocumentContent } from './contentExtractor'
+import { setActiveChatId, setCurrentDocument } from '../../../Redux/ChatSlice'
 
-export default function Hero() {
-
-    const userId = useSelector((state) => state.user.authState?.session?.user?.id);
-    const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
-    const [status, setStatus] = useState('Uploading document...');
-    const { fetch } = useHttpClient();
+export default function Hero () {
+  const userId = useSelector((state) => state.user.authState?.session?.user?.id)
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState('Uploading document...')
+  const { fetch } = useHttpClient()
 
   const openSocket = useCallback(
     async (id) => {
-      const channel = supabaseClient.channel(`upload:${id}`);
+      const channel = supabaseClient.channel(`upload:${id}`)
 
       channel
         .on('broadcast', { event: 'upload:complete' }, ({ payload }) => {
-          setLoading(false);
+          setLoading(false)
 
-          const { id, title, fileName } = payload;
-          dispatch(setActiveChatId(id));
+          const { id, title, fileName } = payload
+          dispatch(setActiveChatId(id))
           dispatch(setCurrentDocument({
             title,
             id,
             fileName
-          }));
+          }))
         })
         .on('broadcast', { event: 'upload:progress' }, ({ payload }) => {
-          setStatus(payload.message);
+          setStatus(payload.message)
         })
         .on('broadcast', { event: 'upload:error' }, ({ payload }) => {
-          console.error(payload);
-          setLoading(false);
+          console.error(payload)
+          setLoading(false)
           toast.error(payload.error, {
             position: 'bottom-left',
             autoClose: 3000,
             toastId: 'upload_error'
-          });
+          })
         })
-        .subscribe();
+        .subscribe()
     },
     [dispatch]
-  );
+  )
 
   const onDrop = useCallback(
     async (acceptedFiles) => {
@@ -64,52 +62,52 @@ export default function Hero() {
           position: 'bottom-left',
           autoClose: 3000,
           toastId: 'upload_error'
-        });
-        return;
+        })
+        return
       }
 
-      setLoading(true);
+      setLoading(true)
 
-      const file = acceptedFiles[0];
-      const checksum = await generateChecksum(file);
+      const file = acceptedFiles[0]
+      const checksum = await generateChecksum(file)
 
-      let fileExtension = '';
+      let fileExtension = ''
       switch (file.type) {
         case 'application/pdf':
-            fileExtension = '.pdf';
-            break;
+          fileExtension = '.pdf'
+          break
         case 'text/csv':
-            fileExtension = '.csv';
-            break; 
+          fileExtension = '.csv'
+          break
         default:
-            setLoading(false);
-            toast.error('Unsupported file type', {
-                position: 'bottom-left',
-                autoClose: 3000,
-                toastId: 'upload_error'
-            });
-            return;
-        }
-
-        setStatus('Uploading document...');
-
-      const uploadPath = `${checksum}${fileExtension}`;
-      try {
-        const { error } = await supabaseClient.storage
-        .from(process.env.REACT_APP_SUPABASE_BUCKET)
-        .upload(uploadPath, file, {
-          cacheControl: '3600',
-          upsert: true,
-          contentType: file.type
-        });
-        if (error) {
-          console.error('Error uploading file (returned by upload() func)', error);
-        }
-      } catch (error) {
-        console.error('Error uploading file during execution of catch block in Hero', error);
+          setLoading(false)
+          toast.error('Unsupported file type', {
+            position: 'bottom-left',
+            autoClose: 3000,
+            toastId: 'upload_error'
+          })
+          return
       }
 
-      setStatus('Extracting document content...');
+      setStatus('Uploading document...')
+
+      const uploadPath = `${checksum}${fileExtension}`
+      try {
+        const { error } = await supabaseClient.storage
+          .from(process.env.REACT_APP_SUPABASE_BUCKET)
+          .upload(uploadPath, file, {
+            cacheControl: '3600',
+            upsert: true,
+            contentType: file.type
+          })
+        if (error) {
+          console.error('Error uploading file (returned by upload() func)', error)
+        }
+      } catch (error) {
+        console.error('Error uploading file during execution of catch block in Hero', error)
+      }
+
+      setStatus('Extracting document content...')
       const { response, error } = await extractDocumentContent(file).then(
         async ({ content }) => {
           const response = await fetch('/api/process-document', {
@@ -118,45 +116,43 @@ export default function Hero() {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ checksum, fileName: file.name, content, userId, fileExtension })
-          });
+          })
 
           if (!response.ok) {
             console.log('Hero.js: fetch error')
-            return { error: 'Error processing document' };
+            return { error: 'Error processing document' }
           }
 
-          return { response };
+          return { response }
         }
-      );
+      )
 
       if (error) {
-        setLoading(false);
+        setLoading(false)
         toast.error('Error uploading document', {
           position: 'bottom-left',
           autoClose: 3000,
           toastId: 'upload_error'
-        });
-        return;
+        })
+        return
       }
 
       if (response.status === 201) {
-        openSocket(checksum);
-        return;
+        openSocket(checksum)
       } else if (response.status === 200) {
-        const { id, title, fileName } = await response.json();
-        dispatch(setActiveChatId(checksum));
+        const { id, title, fileName } = await response.json()
+        dispatch(setActiveChatId(checksum))
         dispatch(setCurrentDocument({
           title,
           id,
           fileName
-        }));
-        setLoading(false);
-        return;
+        }))
+        setLoading(false)
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [openSocket, dispatch, fetch]
-  );
+  )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -165,7 +161,7 @@ export default function Hero() {
       'application/pdf': ['.pdf'],
       'text/csv': ['.csv']
     }
-  });
+  })
 
   return (
     <Box
@@ -176,13 +172,15 @@ export default function Hero() {
       alignItems: 'center',
       height: '100%',
       textAlign: 'center',
-      overflow: 'hidden',
+      overflow: 'hidden'
     }}
     >
       <UploadInput getInputProps={getInputProps} />
-      {loading ? (
+      {loading
+        ? (
         <Loader status={status} />
-      ) : (
+          )
+        : (
         <>
           <Stack
             direction="row"
@@ -191,7 +189,7 @@ export default function Hero() {
           >
             <FeatureCards />
           </Stack>
-          
+
           <Stack
             sx={{
               bottom: 0,
@@ -200,7 +198,7 @@ export default function Hero() {
             }}
           >
           </Stack>
-  
+
           <Stack
             display={{
               xl: 'block',
@@ -211,7 +209,7 @@ export default function Hero() {
             <Box
               {...getRootProps()}
               sx={{
-                border: `2px solid black`,
+                border: '2px solid black',
                 width: '250px',
                 height: '150px',
                 borderRadius: '10px',
@@ -222,11 +220,12 @@ export default function Hero() {
                 justifyContent: 'center',
                 opacity: isDragActive ? 0.5 : 1,
                 transition: 'opacity 0.3s ease-in-out',
-                marginTop: '20px', 
+                marginTop: '20px'
               }}
             >
-              
-              {isDragActive ? (
+
+              {isDragActive
+                ? (
                 <CloudUpload
                     sx={{
                       color: 'rgb(63,81,181)',
@@ -234,18 +233,19 @@ export default function Hero() {
                       margin: '20px 0px'
                     }}
                   />
-                ) : (
+                  )
+                : (
                   <>
               <UploadFileRounded sx={{ fontSize: '30px' }} />
               <Typography sx={{ fontSize: { xl: '14px', xs: '12px' }, margin: '10px 0px' }}>
                 Upload a file
               </Typography>
               </>
-                )}
+                  )}
             </Box>
           </Stack>
         </>
-      )}
+          )}
     </Box>
-  );
+  )
 }
