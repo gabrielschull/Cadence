@@ -69,7 +69,7 @@ export default function Hero () {
       setLoading(true)
 
       const file = acceptedFiles[0]
-      const checksum = await generateChecksum(file)
+      const checksum = await generateChecksum(file) + userId
 
       let fileExtension = ''
       switch (file.type) {
