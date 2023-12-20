@@ -51,7 +51,8 @@ const saveDocument = async ({ checksum, fileName, chunks, userId, fileExtension 
       checksum,
       document_name: fileName,
       title: fileName,
-      uploaded_object_id: object[0].id
+      uploaded_object_id: object[0].id,
+      created_by: userId
     });
 
   if (error) {
