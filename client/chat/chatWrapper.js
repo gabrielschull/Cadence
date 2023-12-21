@@ -15,7 +15,6 @@ const ChatWrapper = ({ children }) => {
     if (!userId) {
       return
     }
-    console.log('chatwrapper useEffect UserId', userId)
     const loadHistory = async () => {
       const response = await fetch(`/api/history?userId=${userId}`)
       const data = await response.json()

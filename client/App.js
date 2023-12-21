@@ -16,8 +16,6 @@ function App () {
   function HomePage () {
     const authState = useSelector((state) => state.user.authState)
     console.log('authState', authState)
-    const userInfo = useSelector((state) => state.user.user)
-    console.log('userInfo', userInfo)
 
     return (
       <>

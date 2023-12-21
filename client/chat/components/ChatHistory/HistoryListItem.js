@@ -7,10 +7,11 @@ import {
   ListItemIcon,
   ListItemText,
   Tooltip,
-  Typography
+  Typography,
+  CircularProgress
 } from '@mui/material'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setActiveChatId, setCurrentDocument, setOpenDraw } from '../../../Redux/ChatSlice'
 import ActionButtons from './ActionButtons'
 import ChatTitleInput from './ChatTitleInput'
@@ -18,11 +19,17 @@ import DeleteDialog from './DeleteDialog'
 
 export default function HistoryListItem ({ isActive, conversation }) {
   const dispatch = useDispatch()
+  const currentDocument = useSelector((state) => state.chat.currentDocument)
 
   const [isEdit, setIsEdit] = useState(false)
   const [chatToDelete, setChatToDelete] = useState(null)
   const [chatTitle, setChatTitle] = useState(conversation.title)
 
+  useEffect(() => {
+    setChatTitle(conversation.title)
+  }, [conversation.title])
+
+  //cleanup when component unmounts
   useEffect(() => {
     return () => {
       setIsEdit(false)
@@ -73,7 +80,7 @@ export default function HistoryListItem ({ isActive, conversation }) {
           />
         </ListItemIcon>
         <ListItemText>
-          <Tooltip title={conversation.title} placement="bottom-end">
+          <Tooltip title={currentDocument.title} placement="bottom-end">
             <Typography
             component='div'
               sx={{
@@ -94,7 +101,7 @@ export default function HistoryListItem ({ isActive, conversation }) {
                 />
                   )
                 : (
-                    conversation.title
+                    chatTitle 
                   )}
             </Typography>
           </Tooltip>

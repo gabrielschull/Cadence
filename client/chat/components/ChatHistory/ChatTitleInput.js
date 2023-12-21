@@ -37,17 +37,20 @@ export default function ChatTitleInput ({
         console.log('data', data)
         setLoading(false)
 
-        if (!data.ok) {
+        if (data.status !== 200) {
           setError(true)
         } else {
           setError(false)
           setIsEdit(false)
           setChatTitle(chatTitle)
 
+          console.log('currentConversation', currentConversation)
+
           const updatedConversation = {
             ...currentConversation,
             title: chatTitle
           }
+          console.log('updatedConversation', updatedConversation)
 
           dispatch(setCurrentDocument(updatedConversation))
 
@@ -125,7 +128,6 @@ export default function ChatTitleInput ({
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           submitHandler()
-          console.log('edit submitted')
           setIsEdit(false)
         } else if (e.key === 'Escape') {
           setIsEdit(false)

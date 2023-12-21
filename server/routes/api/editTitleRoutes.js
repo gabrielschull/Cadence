@@ -6,14 +6,11 @@ const router = express.Router();
 router.patch('/edit-title', async (req, res) => {
   try {
     const { id, title } = req.body;
-    console.log('id', id)
-    console.log('title', title)
 
-    const { error, count } = await supabase
+    const { error } = await supabase
       .from(process.env.REACT_APP_SUPABASE_DOCUMENTS_TABLE) 
       .update({ title: title })
       .eq('checksum', id);
-      console.log('count', count)
 
     if (error) {
       console.error(error);
@@ -21,7 +18,8 @@ router.patch('/edit-title', async (req, res) => {
     }
 
     res.json({
-      message: 'Document title updated successfully'
+      message: 'Document title updated successfully',
+      status: 200
     });
   } catch (error) {
     console.error(error);

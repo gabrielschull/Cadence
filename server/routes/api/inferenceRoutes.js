@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.post('/inference', async (req, res) => {
   const { documentId, conversationId, message } = req.body;
-  console.log('inferenceRoutes req.body', req.body);
 
   saveChatToBuffer(documentId, message, 'human');
   saveChat({
@@ -22,8 +21,6 @@ router.post('/inference', async (req, res) => {
   const stream = new TransformStream();
   const aiMessageId = uuid().toString();
   await processInference({ documentId, question: message, aiMessageId, stream });
-
-  console.log('processInference inputs in route', documentId, message, stream, aiMessageId);
 
   const response = new Response(await stream.readable);
   response.headers.set('Content-Type', 'text/event-stream');

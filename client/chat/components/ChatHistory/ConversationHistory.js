@@ -7,8 +7,6 @@ import HistoryListItem from './HistoryListItem'
 export default function ConversationHistory () {
   const conversationHistory = useSelector((state) => state.chat.conversationHistory)
   const activeChatId = useSelector((state) => state.chat.activeChatId)
-  console.log('activeChatId', activeChatId)
-  console.log('conversationHistory', conversationHistory)
 
   return (
     <>

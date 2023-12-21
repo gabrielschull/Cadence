@@ -16,8 +16,6 @@ export default function ChatContainer () {
   const dispatch = useDispatch()
   const activeChatId = useSelector((state) => state.chat.activeChatId)
   const currentDocument = useSelector((state) => state.chat.currentDocument)
-  const userInfo = useSelector((state) => state.user.userInfo)
-  console.log('userInfo', userInfo)
 
   const [conversations, setConversations] = useState([])
   const [newMessage, setNewMessage] = useState(null)
@@ -37,7 +35,6 @@ export default function ChatContainer () {
       console.log('res', res)
       setLoading(false)
       const data = await res.json()
-      console.log('data', data)
       setConversations(prev => {
         const existingIds = new Set(prev.map(msg => msg.id))
         const newMessages = data.filter(item => !existingIds.has(item.id)).map(item => ({
