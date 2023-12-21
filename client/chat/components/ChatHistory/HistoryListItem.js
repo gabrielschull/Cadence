@@ -75,6 +75,7 @@ export default function HistoryListItem ({ isActive, conversation }) {
         <ListItemText>
           <Tooltip title={conversation.title} placement="bottom-end">
             <Typography
+            component='div'
               sx={{
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',

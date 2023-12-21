@@ -14,7 +14,6 @@ export default function ChatTitleInput ({
   const dispatch = useDispatch()
   const oldhistory = useSelector((state) => state.chat.conversationHistory)
   const currentConversation = useSelector((state) => state.chat.currentDocument)
-  console.log('oldhistory', oldhistory)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
@@ -24,9 +23,13 @@ export default function ChatTitleInput ({
     if (!chatTitle) return
 
     setLoading(true)
+    console.log('chatTitle', chatTitle )
 
     await fetch('/api/edit-title', {
       method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ title: chatTitle, id: chatId })
     })
       .then((res) => res.json())
